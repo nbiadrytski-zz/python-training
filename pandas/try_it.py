@@ -19,3 +19,11 @@ print("############################")
 print("Average value of df1:\n", df1.mean())
 print("############################")
 print("df1 Prices:\n", df1.Price)
+
+#        Price  Age  Value
+#First       1    2      3
+#Second      4    5      6
+
+#    Name     Surname
+#0   Nick  Biadrytski
+#1  Jimmy      Toledo
