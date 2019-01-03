@@ -1,0 +1,17 @@
+To use virtual env:
+
+1. Create mysite folder on project level
+2. Inside mysite folder create folder (e.g. flask_web) with your app
+3. On Mac OS run: virtualenv venv
+These command creates a venv/ directory in your project where all dependencies are installed
+4. Then activate your virtual env by running:
+source venv/bin/activate
+You should see a (venv) appear at the beginning of your terminal prompt indicating that you are working inside the virtualenv.
+5. If you need any library, you can install it now, e.g.: pip3 install flask.
+It will get installed in the venv/ folder, and not conflict with other projects.
+6. Now you can run your app from your virtual env, e.g.:
+pyhton3 flask_web/demo.py
+7. To leave the virtual environment run:
+deactivate
+
+https://sourabhbajaj.com/mac-setup/Python/virtualenv.html
