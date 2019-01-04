@@ -1,0 +1,94 @@
+For Windows install psycopg2
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#psycopg
+pip install .\psycopg2-2.6.1-cp36-none-amd64.whl
+check version: psycopg2.__version__
+
+Install on Mac OS:
+https://gist.github.com/ibraheem4/ce5ccd3e4d7a65589ce84f2a3b7c23a3
+http://exponential.io/blog/2015/02/21/install-postgresql-on-mac-os-x-via-brew/
+
+127.0.0.1:5432
+
+
+==> Installing postgresql
+==> /usr/local/Cellar/postgresql/11.1/bin/initdb /usr/local/var/postgres
+
+To have launchd start postgresql now and restart at login:
+  brew services start postgresql
+Or, if you don't want/need a background service you can just run:
+  pg_ctl -D /usr/local/var/postgres start
+==> Summary
+🍺  /usr/local/Cellar/postgresql/11.1: 3,548 files, 40.3MB
+
+
+LATEST INSTALLATION:
+/usr/local/Cellar/postgresql/11.1
+
+1. Start server:
+pg_ctl -D /usr/local/var/postgres start
+Stop server:
+pg_ctl -D /usr/local/var/postgres stop
+
+
+2. Start psql session:
+psql
+
+$ psql
+psql (11.1)
+Type "help" for help.
+
+
+3. List existing databases
+
+mikalai_biadrytski=# \l
+                                                     List of databases
+        Name        |       Owner        | Encoding |   Collate   |    Ctype    |             Access privileges
+--------------------+--------------------+----------+-------------+-------------+-------------------------------------------
+ mikalai_biadrytski | mikalai_biadrytski | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ postgres           | mikalai_biadrytski | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ python_training    | mikalai_biadrytski | UTF8     | en_US.UTF-8 | en_US.UTF-8 |
+ template0          | mikalai_biadrytski | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/mikalai_biadrytski                    +
+                    |                    |          |             |             | mikalai_biadrytski=CTc/mikalai_biadrytski
+ template1          | mikalai_biadrytski | UTF8     | en_US.UTF-8 | en_US.UTF-8 | =c/mikalai_biadrytski                    +
+                    |                    |          |             |             | mikalai_biadrytski=CTc/mikalai_biadrytski
+(5 rows)
+
+
+4. Created database
+
+mikalai_biadrytski=# CREATE DATABASE python_training OWNER mikalai_biadrytski;
+
+
+5. Connect to database (stop server first, then start it again)
+
+psql python_training
+
+
+6. Select all rows from store table
+python_training=# SELECT * FROM store;
+ item  | quantity | price
+-------+----------+-------
+ Apple |       10 |    15
+ Apple |       10 |    15
+ Apple |       10 |    15
+ Apple |       10 |    15
+ Apple |       10 |    15
+ Apple |       10 |    15
+(6 rows)
+
+
+7. You can change user's password
+ALTER USER mikalai_biadrytski WITH PASSWORD 'password';
+
+
+8. List users
+
+python_training=# \du
+                                        List of roles
+     Role name      |                         Attributes                         | Member of
+--------------------+------------------------------------------------------------+-----------
+ mikalai_biadrytski | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+
+
+
+Commands cheat sheet: https://gist.github.com/Kartones/dd3ff5ec5ea238d4c546
