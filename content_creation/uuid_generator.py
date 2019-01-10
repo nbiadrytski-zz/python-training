@@ -1,18 +1,26 @@
 import uuid
+import requests
 
 content_path = "http://posting.mongo-arc-v2.mtvnservices.com/uca/v2/content/authoring/"
-count = 0
+links_count = 0
 
 with open('test.txt') as f:
     for line in f:
-        count += line.count("xml")
+        links_count += line.count("xml")
 
 
 def generate_uuid():
     new_uuid = uuid.uuid4()
-    return count * (content_path + str(new_uuid) + ".xml" + "\n")
+    return new_uuid
 
 
-print(generate_uuid())
+for item in range(links_count):
+    url = content_path + str(generate_uuid()) + ".xml"
+    response = requests.get(url)
+    if "There is no Content Record found under the Content Environment with ID" in response.text:
+        print(url)
+    else:
+        print("UUID is not vacant: " + url)
 
-# first run content\_creation.py
+
+# first run content_creation.py to get test.txt
