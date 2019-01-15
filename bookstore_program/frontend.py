@@ -1,5 +1,10 @@
 from tkinter import *
-import backend
+import backend1
+
+
+# to create an executable file
+# pip3 install pyinstaller
+# pyinstaller --onefile --windowed frontend.py
 
 
 def get_selected_row(event):
@@ -21,28 +26,28 @@ def get_selected_row(event):
 
 def view_command():
     list1.delete(0, END)
-    for row in backend.view():
+    for row in backend1.view():
         list1.insert(END, row)
 
 
 def search_command():
     list1.delete(0, END)
-    for row in backend.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
+    for row in backend1.search(title_text.get(), author_text.get(), year_text.get(), isbn_text.get()):
         list1.insert(END, row)
 
 
 def add_command():
-    backend.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    backend1.insert(title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
     list1.delete(0, END)
     list1.insert(END, (title_text.get(), author_text.get(), year_text.get(), isbn_text.get()))
 
 
 def delete_command():
-    backend.delete(selected_tuple[0])
+    backend1.delete(selected_tuple[0])
 
 
 def update_command():
-    backend.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
+    backend1.update(selected_tuple[0], title_text.get(), author_text.get(), year_text.get(), isbn_text.get())
 
 
 # create window object with Tk() method
