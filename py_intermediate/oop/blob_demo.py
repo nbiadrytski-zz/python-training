@@ -1,5 +1,6 @@
 import pygame
 from py_intermediate.oop.blob import Blob
+import random
 
 STARTING_BLUE_BLOBS = 10
 STARTING_RED_BLOBS = 3
@@ -15,6 +16,16 @@ pygame.display.set_caption("Blob World")
 clock = pygame.time.Clock()
 
 
+class BlueBlob(Blob):
+    def __init__(self, color, x_boundary, y_boundary):
+        super().__init__(color, x_boundary, y_boundary)
+        self.color = BLUE
+
+    def move_fast(self):
+        self.x += random.randrange(-7, 7)
+        self.y += random.randrange(-7, 7)
+
+
 def draw_env(blob_list):
     game_display.fill(WHITE)
 
@@ -22,15 +33,17 @@ def draw_env(blob_list):
         for blob_id in blob_dict:
             blob = blob_dict[blob_id]
             pygame.draw.circle(game_display, blob.color, [blob.x, blob.y], blob.size)
-            blob.move()
+            blob.move_fast()
             blob.check_bounds()
 
     pygame.display.update()
 
 
 def main():
-    blue_blobs = dict(enumerate([Blob(BLUE, WIDTH, HEIGHT) for i in range(STARTING_BLUE_BLOBS)]))
-    red_blobs = dict(enumerate([Blob(RED, WIDTH, HEIGHT) for i in range(STARTING_RED_BLOBS)]))
+    # noinspection PyTypeChecker
+    blue_blobs = dict(enumerate([BlueBlob(BLUE, WIDTH, HEIGHT) for i in range(STARTING_BLUE_BLOBS)]))
+    # noinspection PyTypeChecker
+    red_blobs = dict(enumerate([BlueBlob(RED, WIDTH, HEIGHT) for i in range(STARTING_RED_BLOBS)]))
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
