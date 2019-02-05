@@ -1,7 +1,18 @@
+def add_wrapping(item):
+    def wrapped_item():
+        return 'A wrapped up box of {}'.format(str(item))
+    return wrapped_item
+
+
+@add_wrapping
 def new_gpu():
     return 'A new Tesla P100 GPU'
 
 
-print(new_gpu())
+# @add_wrapping
+# def new_bicycle():
+#     return 'a new bike'
 
-# https://www.youtube.com/watch?v=rPCeCPT-f28&list=PLQVvvaa0QuDfju7ADVp5W1GF9jVhjbX-_&index=18
+
+print(new_gpu())
+#print(new_bicycle())
