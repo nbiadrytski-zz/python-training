@@ -1,6 +1,8 @@
 import argparse
 from argparsing.manager import Manager
 
+# https://www.geeksforgeeks.org/command-line-interface-programming-python/
+
 
 def is_manager(args):
     if args.position[0] == 'Manager':
