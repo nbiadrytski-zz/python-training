@@ -27,7 +27,6 @@ def create_salesperson(args):
 def main():
     global manager
     global salesperson
-    global owner
 
     parser = argparse.ArgumentParser(description="Buy drinks and view records with Coffee App!",
                                      prog='Coffee CLI App-->',
