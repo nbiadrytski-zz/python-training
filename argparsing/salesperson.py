@@ -5,12 +5,13 @@ from argparsing.functions import *
 class Salesperson(Employee):
 
     def __init__(self, name, position, beverage):
-        super().__init__(name)
-        self.position = position
+        super().__init__(name, position)
         self.beverage = beverage
 
-    def print_beverage(self):
-        print('Beverages available now: {}'.format(self.beverage))
+    def create_employee(self, args):
+        print('Hi {}! You are a {}'.format(args.name[0], args.position[0]))
+        print('You can sell the following beverages: {}'.format(args.beverage))
+        return Salesperson(args.name[0], args.position[0], args.beverage)
 
     def make_sale(self, available_beverages):
         decide = input('Would you like to sell a beverage? Enter yes or no: ')
@@ -26,7 +27,11 @@ class Salesperson(Employee):
             return None
 
     def view_records(self, file):
-        read_sale_from_file(file)
+        try:
+            with open(file, "r") as f:
+                salesperson_records(f)
+        except TypeError as e:
+            print('Invalid filename or no file passed... ', e)
 
 
 
