@@ -6,7 +6,5 @@ class Employee:
     def fullname(self):
         return "{} {}".format(self.name, self.name[::-1].capitalize())
 
-    #def fire(self):
-    #   print('You are fired!!!')
 
 
