@@ -1,4 +1,6 @@
 class Employee:
+    #msg = 'Do not worry. You are all set. Have a:\n 1 - coffee\n 2 - tea'
+
     def __init__(self, first_name, position):
         self.name = first_name
         self.position = position
@@ -11,8 +13,9 @@ class Employee:
         print('Hi {}! You are the Owner of CoffeeForMe'.format(args.name[0]))
         return Employee(args.name[0], args.position[0])
 
-    def view_records(self, *args):
+    def view_records(self):
         print('Hi {}! Ask your managers if you need to see sales records'.format(self.fullname))
+
 
 
 

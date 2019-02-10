@@ -16,14 +16,19 @@ class ArgumentParser(argparse.ArgumentParser):
                             help='Employee position')
         parser.add_argument("-bev", "--beverage", action='append', default=None,
                             help="List of available beverages: tea, coffee, water, soda, milk, etc.")
-        parser.add_argument("-add", "--addition", type=str, default=None,
+        parser.add_argument("-add", "--addition", action='append', default=None,
                             help="List of available beverage additions: sugar, milk, cinnamon, etc. ")
 
         args = parser.parse_args()
         return args
 
-    # overriding ArgumentParser error method to customize error
+    # overriding ArgumentParser error method to customize error for missing args
     def error(self, message):
         self.print_help(sys.stderr)
         self.exit(0, '{} Error: {}'.format(self.prog, message))
+
+    @staticmethod
+    def quit_msg(name, position):
+        print('"{}" with "{}" position is not a valid employee'.format(name[0], position[0]))
+        print('Available positions: Salesperson or Manager')
 
