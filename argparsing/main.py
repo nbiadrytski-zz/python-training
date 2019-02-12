@@ -2,6 +2,7 @@ from argparsing.manager import Manager
 from argparsing.salesperson import Salesperson
 from argparsing.argument_parser import ArgumentParser
 from argparsing.functions import *
+from argparsing.db_funcs import create_table, view
 # Koly2a3 Salesperson -bev=Water -bev=Soda -add=Sugar -add=Salt
 
 
@@ -9,6 +10,7 @@ def main():
     salesperson_choice_msg = '''What would you like to do? Enter 1 or 2:
     1 - Sell a beverage
     2 - I am tired... No more sales...\n'''
+
     args = ArgumentParser.parse_arguments()
 
     if is_manager(args):
@@ -24,10 +26,10 @@ def main():
             salesperson = Salesperson(args.name[0], args.position[0], args.beverage)
             salesperson.create_employee(args)
             while ask_user(salesperson_choice_msg) == 'yes':
+                create_table()
                 salesperson.make_sale(args.beverage, args.addition)
                 salesperson.view_records()
-                salesperson.count_sales()
-                salesperson.total_sales_amount()
+                print(view())
             else:
                 print('Bye-Bye, {}! See you next time'.format(args.name[0]))
         except NameError as e:

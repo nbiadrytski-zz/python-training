@@ -16,6 +16,3 @@ class Employee:
         print('Hi {}! Ask your managers if you need to see sales records'.format(self.fullname))
 
 
-
-
-

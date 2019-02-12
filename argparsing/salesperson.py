@@ -1,5 +1,7 @@
 from argparsing.employee import Employee
 from argparsing.functions import *
+from argparsing.colors import Colors
+from argparsing.db_funcs import *
 import re
 
 
@@ -20,12 +22,52 @@ class Salesperson(Employee):
             print(Colors.GREEN + beverage + Colors.RESET)
         return Salesperson(args.name[0], args.position[0], args.beverage)
 
+    @staticmethod
+    def add_beverage(available_beverages):
+        while True:
+            print('You can sell the following beverages:')
+            for beverage in available_beverages:
+                print(Colors.GREEN + beverage + Colors.RESET)
+            beverage_to_sell = input('Enter beverage name: \n')
+            if beverage_to_sell.lower() in [x.lower() for x in available_beverages]:
+                beverage_price = input('Enter beverage price: \n')
+                sale_record = 'Beverage: {}. Price: {}$'.format(beverage_to_sell, str(beverage_price))
+                return sale_record
+            else:
+                print('You can sell only:')
+                print(' or '.join(Colors.RED + x + Colors.RESET for x in available_beverages))
+                print(Colors.BLUE + 'Try again!' + Colors.RESET + '\n')
+
+    @staticmethod
+    def add_ingredient(available_additions):
+        while True:
+            print('You can add the following ingredients:')
+            for addition in available_additions:
+                print(Colors.GREEN + addition + Colors.RESET)
+            addition_to_sell = input('Enter ingredient name: \n')
+            if addition_to_sell.lower() in [addition.lower() for addition in available_additions]:
+                addition_price = input('Enter ingredient price: \n')
+                sale_record = 'Addition: {}. Price: {}$'.format(addition_to_sell, str(addition_price))
+                return sale_record
+            else:
+                print('You can add only:')
+                print(' or '.join(Colors.RED + addition + Colors.RESET for addition in available_additions))
+                print(Colors.BLUE + 'Try again!' + Colors.RESET + '\n')
+
     def make_sale(self, available_beverages, available_additions):
         if ask_user(self.addition_msg) == 'no':
-            beverage_to_file(employee_filename(self.fullname), add_beverage(available_beverages))
+            beverage_to_file(employee_filename(self.fullname), self.add_beverage(available_beverages))
+            if is_employee_in_db(self.fullname):
+                update(self.fullname, self.count_sales(), self.total_sales_amount())
+            else:
+                insert(self.fullname, self.count_sales(), self.total_sales_amount())
         else:
             beverage_addition_to_file(employee_filename(self.fullname),
-                                      add_beverage(available_beverages), add_ingredient(available_additions))
+                                      self.add_beverage(available_beverages), self.add_ingredient(available_additions))
+            if is_employee_in_db(self.fullname):
+                update(self.fullname, self.count_sales(), self.total_sales_amount())
+            else:
+                insert(self.fullname, self.count_sales(), self.total_sales_amount())
 
     def total_sales_amount(self):
         try:
@@ -61,9 +103,3 @@ class Salesperson(Employee):
                     print(line)
         except TypeError as e:
             print('Invalid filename or no file passed... ', e)
-
-
-
-
-
-
