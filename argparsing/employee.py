@@ -1,5 +1,4 @@
 class Employee:
-    #msg = 'Do not worry. You are all set. Have a:\n 1 - coffee\n 2 - tea'
 
     def __init__(self, first_name, position):
         self.name = first_name

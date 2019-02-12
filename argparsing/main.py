@@ -6,7 +6,9 @@ from argparsing.functions import *
 
 
 def main():
-    salesperson_choice_msg = 'What would you like to do?\n 1 - Sell a beverage\n 2 - I am tired... No more sales...'
+    salesperson_choice_msg = '''What would you like to do? Enter 1 or 2:
+    1 - Sell a beverage
+    2 - I am tired... No more sales...\n'''
     args = ArgumentParser.parse_arguments()
 
     if is_manager(args):
@@ -27,7 +29,7 @@ def main():
                 salesperson.count_sales()
                 salesperson.total_sales_amount()
             else:
-                print('Bye-Bye! See you next time')
+                print('Bye-Bye, {}! See you next time'.format(args.name[0]))
         except NameError as e:
             print('Non-salesperson object: '.format(e))
     else:

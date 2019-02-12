@@ -5,7 +5,9 @@ import re
 
 class Salesperson(Employee):
 
-    addition_msg = 'Would you like to add an ingredient to your beverage?\n 1 - Add addition\n 2 - Don not add addition'
+    addition_msg = '''Would you like to add an ingredient to your beverage?
+    1 - Add ingredient
+    2 - Don not add ingredient\n'''
 
     def __init__(self, name, position, beverage):
         super().__init__(name, position)
@@ -13,7 +15,9 @@ class Salesperson(Employee):
 
     def create_employee(self, args):
         print('Hi {}! You are a {}'.format(args.name[0], args.position[0]))
-        print('You can sell the following beverages: {}'.format(args.beverage))
+        print('You can sell the following beverages:')
+        for beverage in args.beverage:
+            print(Colors.GREEN + beverage + Colors.RESET)
         return Salesperson(args.name[0], args.position[0], args.beverage)
 
     def make_sale(self, available_beverages, available_additions):
