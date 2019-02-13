@@ -1,4 +1,5 @@
 import sqlite3
+import json
 
 db_name = 'employees.db'
 table_name = 'employees'
@@ -73,7 +74,7 @@ def update(name, sales, amount):
         conn.close()
 
 
-def view():
+def view_db_records():
     conn = create_connection()
     try:
         cur = conn.cursor()
@@ -85,3 +86,14 @@ def view():
         print('Error when viewing employee records... {}'.format(e))
     finally:
         conn.close()
+
+
+def export_as_json():
+    conn = create_connection()
+    cur = conn.cursor()
+    result = cur.execute('SELECT * FROM ' + table_name)
+    items = [dict(zip([key[0] for key in cur.description], row)) for row in result]
+    print(json.dumps({table_name: items}))
+
+
+

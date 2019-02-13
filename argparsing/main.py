@@ -2,7 +2,7 @@ from argparsing.manager import Manager
 from argparsing.salesperson import Salesperson
 from argparsing.argument_parser import ArgumentParser
 from argparsing.functions import *
-from argparsing.db_funcs import create_table, view
+from argparsing.db_funcs import create_table
 # Koly2a3 Salesperson -bev=Water -bev=Soda -add=Sugar -add=Salt
 
 
@@ -11,13 +11,20 @@ def main():
     1 - Sell a beverage
     2 - I am tired... No more sales...\n'''
 
+    manager_choice_msg = '''What would you like to do? Enter 1 or 2:
+        1 - View salespeople records
+        2 - No reports today... Maybe later...\n'''
+
     args = ArgumentParser.parse_arguments()
 
     if is_manager(args):
         try:
             manager = Manager(args.name[0], args.position[0])
             manager.create_employee(args)
-            manager.view_records()
+            while ask_user(manager_choice_msg) == 'yes':
+                manager.view_records()
+            else:
+                print('Bye-Bye, {}! See you next time'.format(args.name[0]))
         except NameError as e:
             print('Non-manager object: {}'.format(e))
 
@@ -29,7 +36,6 @@ def main():
                 create_table()
                 salesperson.make_sale(args.beverage, args.addition)
                 salesperson.view_records()
-                print(view())
             else:
                 print('Bye-Bye, {}! See you next time'.format(args.name[0]))
         except NameError as e:

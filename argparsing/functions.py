@@ -1,3 +1,6 @@
+from argparsing.colors import Colors
+
+
 def is_manager(args):
     if args.position[0].lower() == 'manager':
         return True
@@ -38,3 +41,17 @@ def ask_user(choice_msg):
     print('Your choice is {}\n'.format(choice))
     choice_dict = {1: "yes", 2: "no"}
     return choice_dict[choice]
+
+
+def show_sales_table(employees):
+    sales_sum = sum([pair[2] for pair in employees])
+    amount_sum = sum([pair[3] for pair in employees])
+
+    seller_name = Colors.GREEN + 'Seller Name' + Colors.RESET
+    num_of_sales = Colors.GREEN + 'Number Of Sales' + Colors.RESET
+    total_val = Colors.GREEN + 'Total Value ($)' + Colors.RESET
+
+    print('{:<39}\t|\t{:<5}\t|\t{}'.format(seller_name, num_of_sales, total_val))
+    for _, name, sales, amount in employees:
+        print('{:<30}\t|\t{:<15}\t|\t{}'.format(name, sales, amount))
+    print('{:<30}\t|\t{:<15}\t|\t{}\t\n'.format('Total:', sales_sum, amount_sum))

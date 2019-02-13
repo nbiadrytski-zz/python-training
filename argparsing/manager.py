@@ -1,5 +1,6 @@
 from argparsing.employee import Employee
 from argparsing.db_funcs import *
+from argparsing.functions import *
 
 
 class Manager(Employee):
@@ -12,9 +13,10 @@ class Manager(Employee):
         return Manager(args.name[0], args.position[0])
 
     def view_records(self):
-        print('{} employed as {} is able to view records'.format(self.fullname, self.position))
-        employees = view()
-
-        print('Salesperson', 'Number of sales', 'Total amount')
-        for _, b, c, d in employees:
-            print(b, c, d)
+        try:
+            employees = view_db_records()
+            show_sales_table(employees)
+            #export_as_json()
+        except TypeError:
+            print('\nNo sales records yet. Ask your salespeople to sell something...')
+            # lod exception
