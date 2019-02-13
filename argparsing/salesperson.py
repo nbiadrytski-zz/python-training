@@ -2,7 +2,6 @@ from argparsing.employee import Employee
 from argparsing.functions import *
 from argparsing.colors import Colors
 from argparsing.db_funcs import *
-import re
 
 
 class Salesperson(Employee):
@@ -55,7 +54,7 @@ class Salesperson(Employee):
                 print(Colors.BLUE + 'Try again!' + Colors.RESET + '\n')
 
     def make_sale(self, available_beverages, available_additions):
-        if ask_user(self.addition_msg) == 'no':
+        if self.user_choice(self.addition_msg, 3) == 2:
             beverage_to_file(employee_filename(self.fullname), self.add_beverage(available_beverages))
             if is_employee_in_db(self.fullname):
                 update(self.fullname, self.count_sales(), self.total_sales_amount())
@@ -75,9 +74,7 @@ class Salesperson(Employee):
                 total_price = []
                 for line in f:
                     try:
-                        result = re.findall(r'\d+', line)
-                        price = int(result[0])
-                        total_price.append(price)
+                        match_price(total_price, r'\d+', line)
                     except IndexError as e:
                         print('Sale price is missing in {} line --> {}'.format(line, e))
                 print('Your sales total amount: {}$'.format(sum(total_price)))

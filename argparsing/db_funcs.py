@@ -83,9 +83,28 @@ def view_db_records():
         conn.close()
         return rows
     except sqlite3.Error as e:
-        print('Error when viewing employee records... {}'.format(e))
+        # print('Error when viewing employee records... {}'.format(e))
+        pass
+        # log exception
     finally:
         conn.close()
+
+
+def is_table_empty():
+    conn = create_connection()
+    try:
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM ' + table_name)
+        rows = cur.fetchall()
+        if not rows:
+            return True
+    except sqlite3.Error:
+        pass
+        # log exception
+    finally:
+        print('There are no sales records. Ask your salespeople to sell something')
+        conn.close()
+    return False
 
 
 def export_as_json():
