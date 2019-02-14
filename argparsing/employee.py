@@ -19,7 +19,7 @@ class Employee:
                 choice = int(input(choice_msg))
                 value = choice
             except ValueError:
-                print('{}, the only number you can input is:'.format(self.name))
+                print('{}, you can input only numbers. Enter:'.format(self.name))
                 print(' or '.join(str(x) for x in range(1, delta)) + '\n')
                 continue
             if 0 < choice < delta:

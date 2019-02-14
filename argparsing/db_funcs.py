@@ -97,12 +97,12 @@ def is_table_empty():
         cur.execute('SELECT * FROM ' + table_name)
         rows = cur.fetchall()
         if not rows:
+            print('There are no sales records. Ask your salespeople to sell something...\n')
             return True
     except sqlite3.Error:
         pass
         # log exception
     finally:
-        print('There are no sales records. Ask your salespeople to sell something')
         conn.close()
     return False
 
@@ -113,6 +113,27 @@ def export_as_json():
     result = cur.execute('SELECT * FROM ' + table_name)
     items = [dict(zip([key[0] for key in cur.description], row)) for row in result]
     print(json.dumps({table_name: items}))
+
+
+def export_as_xml(file_name):
+    with open(file_name, "w") as f:
+        conn = create_connection()
+        cur = conn.cursor()
+        cur.execute('SELECT * FROM ' + table_name)
+        rows = cur.fetchall()
+        f.write('<?xml version="1.0" ?>\n')
+        f.write('<employees>\n')
+        for row in rows:
+            f.write('  <row>\n')
+            f.write('    <id>%s</id>\n' % row[0])
+            f.write('    <name>%s</name>\n' % row[1])
+            f.write('    <sales>%s</sales>\n' % row[2])
+            f.write('    <amount>%s</amount>\n' % row[3])
+            f.write('  </row>\n')
+        f.write('</employees>\n')
+        conn.close()
+
+
 
 
 
