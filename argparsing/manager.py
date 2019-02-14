@@ -1,9 +1,10 @@
 from argparsing.employee import Employee
 from argparsing.db_funcs import *
 from argparsing.functions import *
+from argparsing.exporter import Exporter
 
 
-class Manager(Employee):
+class Manager(Employee, Exporter):
 
     manager_export_msg = '''Would you like to export sales records? Enter 1, 2, 3 or 4:
         1 - Export as JSON
@@ -31,15 +32,16 @@ class Manager(Employee):
         choice = self.user_choice(self.manager_export_msg, 5)
         if choice == 1:
             print('export json')
-            export_as_json((self.fullname + '_records.json'))
+            Exporter.export_as_json((self.fullname + '_records.json'))
         elif choice == 2:
             print('export xml')
-            export_as_xml(self.fullname + '_records.xml')
+            Exporter.export_as_xml(self.fullname + '_records.xml')
         elif choice == 3:
             print('export csv')
-            export_as_csv(self.fullname + '_records.csv')
+            Exporter.export_as_csv(self.fullname + '_records.csv')
         elif choice == 4:
             print('do not export')
+
 
 
 
