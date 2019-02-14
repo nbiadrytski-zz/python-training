@@ -18,14 +18,20 @@ def employee_filename(fullname):
 
 
 def beverage_to_file(file_name, beverage_record='Default beverage'):
-    with open(file_name, "a") as f:
-        f.write(beverage_record + "\n")
+    try:
+        with open(file_name, "a") as f:
+            f.write(beverage_record + "\n")
+    except IOError as e:
+        ('File not found or path is incorrect... {}'.format(e))
 
 
 def beverage_addition_to_file(file_name, beverage_record='Default beverage', addition_record='Default addition'):
-    with open(file_name, "a") as f:
-        f.write(beverage_record + "\n")
-        f.write(addition_record + '\n')
+    try:
+        with open(file_name, "a") as f:
+            f.write(beverage_record + "\n")
+            f.write(addition_record + '\n')
+    except IOError as e:
+        print('File not found or path is incorrect... {}'.format(e))
 
 
 def show_sales_table(employees):

@@ -31,12 +31,13 @@ class Manager(Employee):
         choice = self.user_choice(self.manager_export_msg, 5)
         if choice == 1:
             print('export json')
-            export_as_json()
+            export_as_json((self.fullname + '_records.json'))
         elif choice == 2:
             print('export xml')
             export_as_xml(self.fullname + '_records.xml')
         elif choice == 3:
             print('export csv')
+            export_as_csv(self.fullname + '_records.csv')
         elif choice == 4:
             print('do not export')
 
