@@ -1,8 +1,8 @@
-from argparsing.manager import Manager
-from argparsing.salesperson import Salesperson
-from argparsing.argument_parser import ArgumentParser
-from argparsing.functions import *
-from argparsing.db_funcs import create_table, is_table_empty
+from argparsing.employees.manager import Manager
+from argparsing.employees.salesperson import Salesperson
+from argparsing.argsparser.argument_parser import ArgumentParser
+from argparsing.functions.db_funcs import create_table, is_table_empty
+from argparsing.functions.functions import is_salesperson, is_manager
 # Koly2a3 Salesperson -bev=Water -bev=Soda -add=Sugar -add=Salt
 
 
@@ -28,8 +28,8 @@ def main():
                     manager.export_records()
             else:
                 print('Bye-Bye, {}! See you next time'.format(args.name[0]))
-        except NameError as e:
-            print('Non-manager object: {}'.format(e))
+        except NameError:
+            print('Non-manager object is trying to access manager stuff...')
 
     elif is_salesperson(args):
         try:
@@ -41,8 +41,8 @@ def main():
                 salesperson.view_records()
             else:
                 print('Bye-Bye, {}! See you next time'.format(args.name[0]))
-        except NameError as e:
-            print('Non-salesperson object: '.format(e))
+        except NameError:
+            print('Non-salesperson object is trying to access salesperson stuff...')
     else:
         args_positions = ArgumentParser()
         args_positions.quit_msg(args.name[0], args.position[0])

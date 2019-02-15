@@ -1,4 +1,4 @@
-from argparsing.db_funcs import *
+from argparsing.functions.db_funcs import *
 import json
 import csv
 

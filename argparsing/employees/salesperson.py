@@ -1,7 +1,6 @@
-from argparsing.employee import Employee
-from argparsing.functions import *
-from argparsing.colors import Colors
-from argparsing.db_funcs import *
+from argparsing.employees.employee import Employee
+from argparsing.functions.db_funcs import *
+from argparsing.functions.functions import *
 
 
 class Salesperson(Employee):

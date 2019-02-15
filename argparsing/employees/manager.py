@@ -1,7 +1,7 @@
-from argparsing.employee import Employee
-from argparsing.db_funcs import *
-from argparsing.functions import *
-from argparsing.exporter import Exporter
+from argparsing.employees.employee import Employee
+from argparsing.functions.db_funcs import *
+from argparsing.exporter.exporter import Exporter
+from argparsing.functions.functions import show_sales_table
 
 
 class Manager(Employee, Exporter):

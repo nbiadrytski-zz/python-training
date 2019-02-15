@@ -1,4 +1,4 @@
-from argparsing.colors import Colors
+from argparsing.functions.colors import Colors
 import re
 
 
