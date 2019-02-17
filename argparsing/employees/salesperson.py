@@ -3,8 +3,6 @@ from argparsing.functions.db_funcs import *
 from argparsing.functions.functions import *
 import logging
 
-#salesperson_logger = logging.getLogger('main.argparsing.employees.Salesperson')
-
 
 class Salesperson(Employee):
 
@@ -21,8 +19,7 @@ class Salesperson(Employee):
 
     def create_employee(self, args):
         self.logger.debug('Creating Salesperson employee')
-        print('Hi {}! You are a {}'.format(args.name[0], args.position[0]))
-        print('You can sell the following beverages:')
+        print('Hi {}! You are a {}.\nYou can sell the following beverages:'.format(args.name[0], args.position[0]))
         for beverage in args.beverage:
             print(Colors.GREEN + beverage + Colors.RESET)
         self.logger.info('Created Salesperson employee: {}'.format(self.__str__()))
@@ -30,12 +27,9 @@ class Salesperson(Employee):
 
     def add_beverage(self, available_beverages):
         while True:
-            print('You can sell the following beverages:')
-            for beverage in available_beverages:
-                print(Colors.GREEN + beverage + Colors.RESET)
-            beverage_to_sell = input('Enter beverage name: \n')
+            beverage_to_sell = get_item_to_sell('beverage', available_beverages)
             if beverage_to_sell.lower() in [x.lower() for x in available_beverages]:
-                beverage_price = input('Enter beverage price: \n')
+                beverage_price = enter_price('beverage')
                 sale_record = 'Beverage: {}. Price: {}$'.format(beverage_to_sell, str(beverage_price))
                 self.logger.info('{} added a beverage: {} at {}$'.
                                  format(self.fullname, beverage_to_sell, str(beverage_price)))
@@ -48,12 +42,9 @@ class Salesperson(Employee):
 
     def add_ingredient(self, available_additions):
         while True:
-            print('You can add the following ingredients:')
-            for addition in available_additions:
-                print(Colors.GREEN + addition + Colors.RESET)
-            addition_to_sell = input('Enter ingredient name: \n')
+            addition_to_sell = get_item_to_sell('ingredient', available_additions)
             if addition_to_sell.lower() in [addition.lower() for addition in available_additions]:
-                addition_price = input('Enter ingredient price: \n')
+                addition_price = enter_price('ingredient')
                 sale_record = 'Addition: {}. Price: {}$'.format(addition_to_sell, str(addition_price))
                 self.logger.info('{} added addition: {} at {}$'.
                                  format(self.fullname, addition_to_sell, str(addition_price)))
@@ -93,12 +84,13 @@ class Salesperson(Employee):
                 total_price = []
                 for line in f:
                     try:
-                        match_price(total_price, r'\d+', line)
+                        match_price(total_price, r'[-+]?\d*\.\d+|\d+', line)
                     except IndexError as e:
                         self.logger.error('Sale price is missing in {} line --> {}'.format(line, e))
-                print('Your sales total amount: {}$'.format(sum(total_price)))
-                self.logger.info('Total sales amount calculated: {}'.format(sum(total_price)))
-                return sum(total_price)
+                total_price = round(sum(total_price), 2)
+                print('Your sales total amount: {}$'.format(total_price))
+                self.logger.info('Total sales amount calculated: {}'.format(total_price))
+                return total_price
         except TypeError as e:
             self.logger.error('Invalid filename/directory or no file passed... ', e)
 

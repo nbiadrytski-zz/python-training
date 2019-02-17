@@ -16,8 +16,7 @@ class Manager(Employee, Exporter):
         super().__init__(name, position)
 
     def create_employee(self, args):
-        print('Hi {}! You are a {}'.format(args.name[0], args.position[0]))
-        print('You can view all sales records\n')
+        print('Hi {}! You are a {}.\nYou can view all sales records\n'.format(args.name[0], args.position[0]))
         return Manager(args.name[0], args.position[0])
 
     def view_records(self):

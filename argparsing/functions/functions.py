@@ -16,18 +16,40 @@ def employee_filename(fullname):
     return file_name
 
 
+def get_item_to_sell(item_name, available_items):
+    print('You can sell the following {}s:'.format(item_name))
+    for item in available_items:
+        print(Colors.GREEN + item + Colors.RESET)
+    item_to_sell = input('Enter ' + item_name + ' name: \n')
+    return item_to_sell
+
+
+def enter_price(item):
+    while True:
+        user_price = input('Enter ' + item + ' price: \n')
+        try:
+            beverage_price = float(user_price)
+            if beverage_price < 0:
+                print('You can enter only positive integers or floats.\nTry Again!')
+                continue
+            break
+        except ValueError:
+            print('"{}" is not a number. You can enter only positive integers or floats\nTry again!'.format(user_price))
+    return str(beverage_price)
+
+
 def beverage_to_file(file_name, beverage_record='Default beverage'):
     try:
-        with open(file_name, "a") as f:
-            f.write(beverage_record + "\n")
+        with open(file_name, 'a') as f:
+            f.write(beverage_record + '\n')
     except IOError as e:
         ('File not found or path is incorrect... {}'.format(e))
 
 
 def beverage_addition_to_file(file_name, beverage_record='Default beverage', addition_record='Default addition'):
     try:
-        with open(file_name, "a") as f:
-            f.write(beverage_record + "\n")
+        with open(file_name, 'a') as f:
+            f.write(beverage_record + '\n')
             f.write(addition_record + '\n')
     except IOError as e:
         print('File not found or path is incorrect... {}'.format(e))
@@ -49,6 +71,6 @@ def show_sales_table(employees):
 
 def match_price(total_price_list, regexp, line):
     result = re.findall(regexp, line)
-    price = int(result[0])
+    price = float(result[0])
     total_price_list.append(price)
     return total_price_list
