@@ -29,6 +29,6 @@ class ArgumentParser(argparse.ArgumentParser):
 
     @staticmethod
     def quit_msg(name, position):
-        print('"{}" with "{}" position is not a valid employee'.format(name[0], position[0]))
+        print('"{}" with "{}" position is not a valid employee'.format(name, position))
         print('Available positions: Salesperson or Manager')
 

@@ -2,14 +2,13 @@ from argparsing.functions.colors import Colors
 import re
 
 
-def is_manager(args):
+def get_employee_position(args):
     if args.position[0].lower() == 'manager':
-        return True
-
-
-def is_salesperson(args):
-    if args.position[0].lower() == 'salesperson':
-        return True
+        return 'manager'
+    elif args.position[0].lower() == 'salesperson':
+        return 'salesperson'
+    else:
+        return None
 
 
 def employee_filename(fullname):
