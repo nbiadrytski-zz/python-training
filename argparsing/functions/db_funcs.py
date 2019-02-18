@@ -8,6 +8,12 @@ logger = logging.getLogger('main.argparsing.functions.db_funcs')
 
 
 def create_connection():
+    """
+    Creates connection to sqlite3 database.
+
+    Returns:
+        sqlite3.Connection: connection to database.
+    """
     try:
         conn = sqlite3.connect(db_name)
         logger.debug('create_connection(): created connection to {}'.format(db_name))
@@ -18,6 +24,9 @@ def create_connection():
 
 
 def create_table():
+    """
+    Creates sqlite3 database table if it doesn't exist already.
+    """
     conn = create_connection()
     try:
         cur = conn.cursor()
@@ -33,6 +42,19 @@ def create_table():
 
 
 def is_employee_in_db(name):
+    """
+    Checks if salesperson is in database by name.
+    Pass salesperson's fullname as a parameter when calling the function.
+
+    Parameters:
+        name (str): Salesperson's full name.
+
+    Returns:
+        bool: True if salesperson is in database, False if not.
+
+    Raises:
+        sqlite3.Error: If error when trying to fetch salesperson from table.
+    """
     conn = create_connection()
     try:
         cur = conn.cursor()
@@ -51,6 +73,18 @@ def is_employee_in_db(name):
 
 
 def insert(name, sales, amount):
+    """
+    Inserts salesperson record into database by name, number of sales and sales amount.
+    When calling the function use Salesperson fullname, count_sales(), total_sales_amount() methods correspondingly.
+
+    Parameters:
+        name (str): Salesperson's full name.
+        sales (int): Salesperson's number of sales. Call Salesperson.count_sales()
+        amount (float): Salesperson's sales total amount. Call Salesperson.total_sales_amount()()
+
+    Raises:
+        sqlite3.Error: If error when trying to insert salesperson record into table.
+    """
     conn = create_connection()
     try:
         cur = conn.cursor()
@@ -65,6 +99,18 @@ def insert(name, sales, amount):
 
 
 def update(name, sales, amount):
+    """
+    Updates salesperson record in database by name, number of sales and sales amount.
+    When calling the function use Salesperson fullname, count_sales(), total_sales_amount() methods correspondingly.
+
+    Parameters:
+        name (str): Salesperson's full name.
+        sales (int): Salesperson's number of sales. Call Salesperson.count_sales()
+        amount (float): Salesperson's sales total amount. Call Salesperson.total_sales_amount()()
+
+    Raises:
+        sqlite3.Error: If error when trying to update salesperson record in table.
+    """
     conn = create_connection()
     try:
         cur = conn.cursor()
@@ -80,6 +126,15 @@ def update(name, sales, amount):
 
 
 def view_db_records():
+    """
+    Selects all salespeople records from table.
+
+    Returns:
+        list: List of all salespeople records from table.
+
+    Raises:
+        sqlite3.Error: If error when trying to select salespeople from table.
+    """
     conn = create_connection()
     try:
         cur = conn.cursor()
@@ -94,6 +149,16 @@ def view_db_records():
 
 
 def is_table_empty():
+    """
+    Checks if there are any salespeople records in database.
+    Pass salesperson's fullname as a parameter when calling the function.
+
+    Returns:
+        bool: True if there are any salespeople records in database, False if not.
+
+    Raises:
+        sqlite3.Error: sqlite3.Error: If error when trying to select salespeople from table.
+    """
     conn = create_connection()
     try:
         cur = conn.cursor()

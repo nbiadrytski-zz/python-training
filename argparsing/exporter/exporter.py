@@ -6,9 +6,25 @@ logger = logging.getLogger('main.argparsing.exporter.exporter.Exporter')
 
 
 class Exporter:
+    """
+    Exporter class holds methods to export data to different formats.
+    """
 
     @staticmethod
     def export_as_json(file_name):
+        """
+        Gets salespeople records from database and
+        Exports them to json file using json module.
+
+        Parameters:
+            file_name (str): name of the file. Pass Manager.fullname property.
+
+        Returns:
+            str: salespeople records in json format.
+
+        Raises:
+            IOError: If file not found or path is incorrect.
+        """
         try:
             with open(file_name, "w") as f:
                 conn = create_connection()
@@ -24,6 +40,18 @@ class Exporter:
 
     @staticmethod
     def export_as_xml(file_name):
+        """
+        Gets salespeople records from database and writes them to xml file.
+
+        Parameters:
+            file_name (str): name of the file. Pass Manager.fullname property.
+
+        Returns:
+            _io.TextIOWrapper: file object.
+
+        Raises:
+            IOError: If file not found or path is incorrect.
+        """
         try:
             with open(file_name, "w") as f:
                 conn = create_connection()
@@ -42,11 +70,24 @@ class Exporter:
                 f.write('</employees>\n')
                 logger.debug('export_as_xml(): stored sales records to xml {} file'.format(file_name))
                 conn.close()
+                return f
         except IOError as e:
             logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
 
     @staticmethod
     def export_as_csv(file_name):
+        """
+        Gets salespeople records from database and writes them to csv file.
+
+        Parameters:
+            file_name (str): name of the file. Pass Manager.fullname property.
+
+        Returns:
+            _io.TextIOWrapper: file object.
+
+        Raises:
+            IOError: If file not found or path is incorrect.
+        """
         conn = create_connection()
         cur = conn.cursor()
         cur.execute('SELECT * FROM ' + table_name)
@@ -57,5 +98,7 @@ class Exporter:
                 for row in cur:
                     writer.writerow(row)
                 logger.debug('export_as_csv(): stored sales records to csv {} file'.format(file_name))
+                print(type(f))
+                return f
         except IOError as e:
             logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
