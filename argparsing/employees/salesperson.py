@@ -18,11 +18,11 @@ class Salesperson(Employee):
         self.logger.debug('Initialising  Salesperson')
 
     def create_employee(self, args):
-        self.logger.debug('Creating Salesperson employee')
+        self.logger.debug('create_employee(): creating Salesperson employee')
         print('Hi {}! You are a {}.\nYou can sell the following beverages:'.format(args.name[0], args.position[0]))
         for beverage in args.beverage:
             print(Colors.GREEN + beverage + Colors.RESET)
-        self.logger.info('Created Salesperson employee: {}'.format(self.__str__()))
+        self.logger.info('create_employee(): created Salesperson employee: {}'.format(self.__str__()))
         return Salesperson(args.name[0], args.position[0], args.beverage, args.addition)
 
     def add_beverage(self, available_beverages):
@@ -110,8 +110,7 @@ class Salesperson(Employee):
     def view_records(self):
         try:
             with open(employee_filename(self.fullname), "r") as f:
-                self.logger.debug('Printing {} sales records inside salesperson.view_records() method'.
-                                  format(self.fullname))
+                self.logger.debug('salesperson.view_records(): printing {} sales records'.format(self.fullname))
                 for line in f:
                     print(line)
         except TypeError as e:

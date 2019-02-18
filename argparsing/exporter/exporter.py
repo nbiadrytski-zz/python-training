@@ -2,6 +2,8 @@ from argparsing.functions.db_funcs import *
 import json
 import csv
 
+logger = logging.getLogger('main.argparsing.exporter.exporter.Exporter')
+
 
 class Exporter:
 
@@ -14,10 +16,11 @@ class Exporter:
                 result = cur.execute('SELECT * FROM ' + table_name)
                 items = [dict(zip([key[0] for key in cur.description], row)) for row in result]
                 json_records = (json.dumps({table_name: items}))
+                logger.debug('export_as_json(): json records to export: {}'.format(json_records))
                 f.write(json_records)
                 return json_records
         except IOError as e:
-            print('File not found or path is incorrect... {}'.format(e))
+            logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
 
     @staticmethod
     def export_as_xml(file_name):
@@ -37,9 +40,10 @@ class Exporter:
                     f.write('    <amount>%s</amount>\n' % row[3])
                     f.write('  </row>\n')
                 f.write('</employees>\n')
+                logger.debug('export_as_xml(): stored sales records to xml {} file'.format(file_name))
                 conn.close()
         except IOError as e:
-            print('File not found or path is incorrect... {}'.format(e))
+            logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
 
     @staticmethod
     def export_as_csv(file_name):
@@ -52,5 +56,6 @@ class Exporter:
                 writer.writerow(["ID", "Name", 'Number of Sales', 'Total Amount ($)'])
                 for row in cur:
                     writer.writerow(row)
+                logger.debug('export_as_csv(): stored sales records to csv {} file'.format(file_name))
         except IOError as e:
-            print('File not found or path is incorrect... {}'.format(e))
+            logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))

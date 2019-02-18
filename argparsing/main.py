@@ -10,13 +10,10 @@ import logging
 def main():
     logger = logging.getLogger('main')
     logger.setLevel(logging.DEBUG)
-
-    file_handler = logging.FileHandler('cafe.log')
-    file_handler.setLevel(logging.DEBUG)
-
+    file_handler = logging.FileHandler('coffee_for_me.log')
+    file_handler.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
-
     logger.addHandler(file_handler)
 
     salesperson_choice_msg = '''What would you like to do? Enter 1 or 2:
@@ -31,26 +28,37 @@ def main():
 
     if get_employee_position(args) == 'manager':
         try:
+            logger.debug('creating Manager instance')
             manager = Manager(args.name[0], args.position[0])
+            logger.info('Created Manager instance: {}'.format(manager.__str__()))
+            logger.debug('Creating Manager employee')
             manager.create_employee(args)
+            logger.info('Created Manager employee: {}'.format(manager.__str__()))
             while manager.user_choice(manager_choice_msg, 3) == 1:
+                logger.debug('Creating DB table to store salespeople data (manager)')
                 create_table()
+                logger.info('DB table created: {}'.format(manager.fullname))
                 if not is_table_empty():
+                    logger.debug('{} is going to view salespeople records'.format(manager.fullname))
                     manager.view_records()
+                    logger.info('{} viewed salespeople records'.format(manager.fullname))
+                    logger.debug('{} is going to export salespeople records'.format(manager.fullname))
                     manager.export_records()
+                    logger.debug('{} exported salespeople records'.format(manager.fullname))
             else:
                 print('Bye-Bye, {}! See you next time'.format(args.name[0]))
+                logger.info('Manager {} decided to quit the app'.format(manager.fullname))
         except NameError:
-            print('Non-manager object is trying to access manager stuff...')
+            logger.error('Non-manager object is trying to access manager stuff...')
 
     elif get_employee_position(args) == 'salesperson':
         try:
             logger.debug('creating Salesperson instance')
             salesperson = Salesperson(args.name[0], args.position[0], args.beverage, args.addition)
-            logger.info('Created salesperson instance: {}'.format(salesperson.__str__()))
+            logger.info('Created Salesperson instance: {}'.format(salesperson.__str__()))
             logger.debug('Creating Salesperson employee')
             salesperson.create_employee(args)
-            logger.info('Created salesperson employee: {}'.format(salesperson.__str__()))
+            logger.info('Created Salesperson employee: {}'.format(salesperson.__str__()))
             while salesperson.user_choice(salesperson_choice_msg, 3) == 1:
                 logger.debug('Creating DB table to store salespeople data (salesperson)')
                 create_table()
@@ -62,12 +70,13 @@ def main():
                 logger.info('Salesperson {} is viewing personal sales records'.format(salesperson.fullname))
             else:
                 print('Bye-Bye, {}! See you next time'.format(args.name[0]))
-                logger.info('{} decided to quit the app'.format(salesperson.fullname))
+                logger.info('Salesperson {} decided to quit the app'.format(salesperson.fullname))
         except NameError:
             logger.error('Non-salesperson object is trying to access salesperson stuff...')
     else:
         args_positions = ArgumentParser()
         args_positions.quit_msg(args.name[0], args.position[0])
+        logger.error('{} with position {} is not a valid employee...'.format(args.name[0], args.position[0]))
 
 
 if __name__ == "__main__":

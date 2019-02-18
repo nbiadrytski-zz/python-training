@@ -1,5 +1,8 @@
 import argparse
 import sys
+import logging
+
+logger = logging.getLogger('main.argparsing.argparser.argument_parser.ArgumentParser')
 
 
 class ArgumentParser(argparse.ArgumentParser):
@@ -20,10 +23,12 @@ class ArgumentParser(argparse.ArgumentParser):
                             help="List of available beverage additions: sugar, milk, cinnamon, etc. ")
 
         args = parser.parse_args()
+        logger.info('parse_arguments(): the following args were supplied by user: {}'.format(str(args)))
         return args
 
     # overriding ArgumentParser error method to customize error for missing args
     def error(self, message):
+        logger.error('error(): obligatory args were not supplied bu user')
         self.print_help(sys.stderr)
         self.exit(0, '{} Error: {}'.format(self.prog, message))
 
