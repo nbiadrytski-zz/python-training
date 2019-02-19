@@ -24,7 +24,8 @@ def main():
         1 - View/export sales records
         2 - No reports today... Maybe later...\n'''
 
-    args = ArgumentParser.parse_arguments()
+    parser = ArgumentParser.parse_arguments()
+    args = parser.parse_args()
 
     if get_employee_position(args) == 'manager':
         try:

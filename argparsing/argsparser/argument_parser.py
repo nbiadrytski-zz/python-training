@@ -17,12 +17,12 @@ class ArgumentParser(argparse.ArgumentParser):
     def parse_arguments():
         """
         Parses positional and optional command-line arguments passed by user.
-        Prints -h for user when the app is started.
+        Prints help message for user when the app is started.
         Positional args: employee_name, employee_position.
         Optional args: beverage, addition
 
         Returns:
-            argparse.Namespace: parsed arguments.
+            ArgumentParser: arguments parser.
         """
         parser = ArgumentParser(description='Sell drinks and view sales records with "CoffeeForMe!"',
                                 epilog='Thank you for using "CoffeeForMe" App!\n')
@@ -35,15 +35,11 @@ class ArgumentParser(argparse.ArgumentParser):
                             help='List of available beverages a Salesperson can sell: tea, coffee, water, soda, etc.')
         parser.add_argument('-add', '--addition', action='append', default=None,
                             help='List of available ingredients a Salesperson can add: sugar, milk, cinnamon, etc.')
-
         parser.print_help()
         print('\n')
+        logger.info('parse_arguments(): created args parser')
 
-        args = parser.parse_args()
-
-        logger.info('parse_arguments(): the following args were supplied by user: {}'.format(str(args)))
-
-        return args
+        return parser
 
     def error(self, message):
         """
