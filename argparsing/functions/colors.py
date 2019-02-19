@@ -1,4 +1,8 @@
 class Colors:
+    """
+    Colors class stores colors variables using ANSI escape codes to make console output colorful.
+    Usage, e.g.: Colors.GREEN + 'your_string' + Colors.RESET
+    """
 
     BLACK = '\u001b[30m'
     RED = '\u001b[31m'

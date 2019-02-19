@@ -13,6 +13,9 @@ def create_connection():
 
     Returns:
         sqlite3.Connection: connection to database.
+
+    Raises:
+        sqlite3.Error: If error when trying to create connection.
     """
     try:
         conn = sqlite3.connect(db_name)
@@ -26,6 +29,9 @@ def create_connection():
 def create_table():
     """
     Creates sqlite3 database table if it doesn't exist already.
+
+    Raises:
+        sqlite3.Error: If error when trying to create db table.
     """
     conn = create_connection()
     try:
@@ -72,7 +78,7 @@ def is_employee_in_db(name):
         conn.close()
 
 
-def insert(name, sales, amount):
+def insert_db_record(name, sales, amount):
     """
     Inserts salesperson record into database by name, number of sales and sales amount.
     When calling the function use Salesperson fullname, count_sales(), total_sales_amount() methods correspondingly.
@@ -98,7 +104,7 @@ def insert(name, sales, amount):
         conn.close()
 
 
-def update(name, sales, amount):
+def update_db_record(name, sales, amount):
     """
     Updates salesperson record in database by name, number of sales and sales amount.
     When calling the function use Salesperson fullname, count_sales(), total_sales_amount() methods correspondingly.

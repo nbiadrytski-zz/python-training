@@ -48,7 +48,8 @@ class Salesperson(Employee):
             Salesperson: name, position, beverage name and ingredient name.
         """
         self.logger.debug('create_employee(): creating Salesperson employee')
-        print('Hi {}! You are a {}.\nYou can sell the following beverages:'.format(args.name[0], args.position[0]))
+        print('Hi {}! You are a {}.\nYou can sell the following beverages:'.
+              format(Colors.GREEN + args.name[0] + Colors.RESET, args.position[0]))
         for beverage in args.beverage:
             print(Colors.GREEN + beverage + Colors.RESET)
         self.logger.info('create_employee(): created Salesperson employee: {}'.format(self.__str__()))
@@ -112,24 +113,25 @@ class Salesperson(Employee):
         """
         if self.user_choice(self.addition_msg, 3) == 2:
             self.logger.debug('{} decided not to add additions to sale'.format(self.fullname))
-            beverage_to_file(employee_filename(self.fullname), self.add_beverage(available_beverages))
+            beverage_to_file(employee_filename('salesperson_records', self.fullname, '_records.txt'),
+                             self.add_beverage(available_beverages))
             self.logger.info('{} added beverage to file'.format(self.fullname))
             if is_employee_in_db(self.fullname):
-                update(self.fullname, self.count_sales(), self.total_sales_amount())
+                update_db_record(self.fullname, self.count_sales(), self.total_sales_amount())
                 self.logger.info('Sales and total amount were updated for {} in db'.format(self.fullname))
             else:
-                insert(self.fullname, self.count_sales(), self.total_sales_amount())
+                insert_db_record(self.fullname, self.count_sales(), self.total_sales_amount())
                 self.logger.info('{} was added to db'.format(self.fullname))
         else:
             self.logger.debug('{} decided to add additions to sale'.format(self.fullname))
-            beverage_addition_to_file(employee_filename(self.fullname),
+            beverage_addition_to_file(employee_filename('salesperson_records', self.fullname, '_records.txt'),
                                       self.add_beverage(available_beverages), self.add_ingredient(available_additions))
             self.logger.info('{} added addition to file'.format(self.fullname))
             if is_employee_in_db(self.fullname):
-                update(self.fullname, self.count_sales(), self.total_sales_amount())
+                update_db_record(self.fullname, self.count_sales(), self.total_sales_amount())
                 self.logger.info('Sales and total amount were updated for {} in db'.format(self.fullname))
             else:
-                insert(self.fullname, self.count_sales(), self.total_sales_amount())
+                insert_db_record(self.fullname, self.count_sales(), self.total_sales_amount())
                 self.logger.info('{} was added to db'.format(self.fullname))
 
     def total_sales_amount(self):
@@ -142,9 +144,10 @@ class Salesperson(Employee):
 
         Raises:
             IOError: If invalid filename/directory or no file passed.
+            TypeError: If trying to pass NoneType instead of file.
         """
         try:
-            with open(employee_filename(self.fullname), "r") as f:
+            with open(employee_filename('salesperson_records', self.fullname, '_records.txt'), "r") as f:
                 total_price = []
                 for line in f:
                     try:
@@ -157,6 +160,8 @@ class Salesperson(Employee):
                 return total_price
         except IOError as e:
             self.logger.error('Invalid filename/directory or no file passed... ', e)
+        except TypeError as e:
+            self.logger.error('Trying to pass NoneType instead of file... {}'.format(e))
 
     def count_sales(self):
         """
@@ -166,9 +171,10 @@ class Salesperson(Employee):
             int: number of sales.
         Raises:
             IOError: If invalid filename/directory or no file passed.
+            TypeError: If trying to pass NoneType instead of file.
         """
         try:
-            with open(employee_filename(self.fullname), 'r') as f:
+            with open(employee_filename('salesperson_records', self.fullname, '_records.txt'), 'r') as f:
                 contents = f.read()
                 beverage_counter = contents.count('Beverage')
                 addition_counter = contents.count('Addition')
@@ -178,6 +184,8 @@ class Salesperson(Employee):
                 return beverage_counter + addition_counter
         except IOError as e:
             self.logger.error('Invalid filename/directory or no file passed... ', e)
+        except TypeError as e:
+            self.logger.error('Trying to pass NoneType instead of file... {}'.format(e))
 
     def view_records(self):
         """
@@ -185,14 +193,17 @@ class Salesperson(Employee):
 
         Raises:
             IOError: If invalid filename/directory or no file passed.
+            TypeError: If trying to pass NoneType instead of file.
         """
         try:
-            with open(employee_filename(self.fullname), "r") as f:
+            with open(employee_filename('salesperson_records', self.fullname, '_records.txt'), "r") as f:
                 self.logger.debug('salesperson.view_records(): printing {} sales records'.format(self.fullname))
                 for line in f:
                     print(line)
         except IOError as e:
             self.logger.error('Invalid filename/directory or no file passed... ', e)
+        except TypeError as e:
+            self.logger.error('Trying to pass NoneType instead of file... {}'.format(e))
 
     def __str__(self):
         return '{} - {} - beverages: {}, additions: {}'.format(self.name, self.position, self.beverage, self.addition)

@@ -9,7 +9,7 @@ import logging
 
 def main():
     logger = logging.getLogger('main')
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.INFO)
     file_handler = logging.FileHandler('coffee_for_me.log')
     file_handler.setLevel(logging.INFO)
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -28,23 +28,18 @@ def main():
 
     if get_employee_position(args) == 'manager':
         try:
-            logger.debug('creating Manager instance')
             manager = Manager(args.name[0], args.position[0])
             logger.info('Created Manager instance: {}'.format(manager.__str__()))
-            logger.debug('Creating Manager employee')
             manager.create_employee(args)
             logger.info('Created Manager employee: {}'.format(manager.__str__()))
             while manager.user_choice(manager_choice_msg, 3) == 1:
-                logger.debug('Creating DB table to store salespeople data (manager)')
                 create_table()
                 logger.info('DB table created: {}'.format(manager.fullname))
                 if not is_table_empty():
-                    logger.debug('{} is going to view salespeople records'.format(manager.fullname))
                     manager.view_records()
                     logger.info('{} viewed salespeople records'.format(manager.fullname))
-                    logger.debug('{} is going to export salespeople records'.format(manager.fullname))
                     manager.export_records()
-                    logger.debug('{} exported salespeople records'.format(manager.fullname))
+                    logger.info('{} exported salespeople records'.format(manager.fullname))
             else:
                 print('Bye-Bye, {}! See you next time'.format(args.name[0]))
                 logger.info('Manager {} decided to quit the app'.format(manager.fullname))
@@ -53,17 +48,13 @@ def main():
 
     elif get_employee_position(args) == 'salesperson':
         try:
-            logger.debug('creating Salesperson instance')
             salesperson = Salesperson(args.name[0], args.position[0], args.beverage, args.addition)
             logger.info('Created Salesperson instance: {}'.format(salesperson.__str__()))
-            logger.debug('Creating Salesperson employee')
             salesperson.create_employee(args)
             logger.info('Created Salesperson employee: {}'.format(salesperson.__str__()))
             while salesperson.user_choice(salesperson_choice_msg, 3) == 1:
-                logger.debug('Creating DB table to store salespeople data (salesperson)')
                 create_table()
                 logger.info('DB table created: {}'.format(salesperson.fullname))
-                logger.debug('{} is going to make a sale'.format(salesperson.fullname))
                 salesperson.make_sale(args.beverage, args.addition)
                 logger.info('{} made a sale'.format(salesperson.fullname))
                 salesperson.view_records()

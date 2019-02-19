@@ -17,13 +17,14 @@ class Exporter:
         Exports them to json file using json module.
 
         Parameters:
-            file_name (str): name of the file. Pass Manager.fullname property.
+            file_name (str): name of the file. Pass employee_filename function.
 
         Returns:
             str: salespeople records in json format.
 
         Raises:
             IOError: If file not found or path is incorrect.
+            TypeError: If trying to pass NoneType instead of file.
         """
         try:
             with open(file_name, "w") as f:
@@ -37,6 +38,8 @@ class Exporter:
                 return json_records
         except IOError as e:
             logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
+        except TypeError as e:
+            logger.error('Trying to pass NoneType {} instead of file... {}'.format(file_name, e))
 
     @staticmethod
     def export_as_xml(file_name):
@@ -44,13 +47,14 @@ class Exporter:
         Gets salespeople records from database and writes them to xml file.
 
         Parameters:
-            file_name (str): name of the file. Pass Manager.fullname property.
+            file_name (str): name of the file. Pass employee_filename function.
 
         Returns:
             _io.TextIOWrapper: file object.
 
         Raises:
             IOError: If file not found or path is incorrect.
+            TypeError: If trying to pass NoneType instead of file.
         """
         try:
             with open(file_name, "w") as f:
@@ -73,6 +77,8 @@ class Exporter:
                 return f
         except IOError as e:
             logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
+        except TypeError as e:
+            logger.error('Trying to pass NoneType {} instead of file... {}'.format(file_name, e))
 
     @staticmethod
     def export_as_csv(file_name):
@@ -80,13 +86,14 @@ class Exporter:
         Gets salespeople records from database and writes them to csv file.
 
         Parameters:
-            file_name (str): name of the file. Pass Manager.fullname property.
+            file_name (str): name of the file.  Pass employee_filename function.
 
         Returns:
             _io.TextIOWrapper: file object.
 
         Raises:
             IOError: If file not found or path is incorrect.
+            TypeError: If trying to pass NoneType instead of file.
         """
         conn = create_connection()
         cur = conn.cursor()
@@ -98,7 +105,8 @@ class Exporter:
                 for row in cur:
                     writer.writerow(row)
                 logger.debug('export_as_csv(): stored sales records to csv {} file'.format(file_name))
-                print(type(f))
                 return f
         except IOError as e:
             logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
+        except TypeError as e:
+            logger.error('Trying to pass NoneType {} instead of file... {}'.format(file_name, e))
