@@ -1,5 +1,4 @@
 from unittest import TestCase
-from argparsing.argsparser.argument_parser import ArgumentParser
 from argparsing.employees.salesperson import Salesperson
 from argparsing.functions.db_funcs import *
 from argparsing.functions.functions import *
@@ -8,6 +7,7 @@ from unittest.mock import patch
 from unittest import mock
 import random
 import string
+import fnmatch
 
 
 class SalespersonTest(TestCase):
