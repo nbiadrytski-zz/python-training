@@ -2,7 +2,6 @@ from argparsing.employees.employee import Employee
 from argparsing.functions.db_funcs import *
 from argparsing.exporter.exporter import Exporter
 from argparsing.functions.functions import show_sales_table, employee_filename
-from argparsing.functions.colors import Colors
 import logging
 
 
@@ -34,23 +33,7 @@ class Manager(Employee):
         """
         super().__init__(name, position)
         self.logger = logging.getLogger('main.argparsing.employees.Manager')
-
-    def create_employee(self, args):
-        """
-        Creates Manager instance. Overrides Employee.create_employee() method.
-        Prints greeting message to Manager.
-
-        Parameters:
-            args (argparse.Namespace): Arguments passed via command line.
-
-        Returns:
-            Manager: name and position.
-        """
-        self.logger.debug('create_employee(): creating Manager employee')
-        print('Hi {}! You are a {}.\nYou can view all sales records\n'.
-              format(Colors.GREEN + args.name[0] + Colors.RESET, args.position[0]))
-        self.logger.info('create_employee(): created Manager employee: {}'.format(self.__str__()))
-        return Manager(args.name[0], args.position[0])
+        self.logger.info('Initialising Manager')
 
     def view_records(self):
         """
@@ -91,7 +74,7 @@ class Manager(Employee):
             self.logger.debug('{} is trying to export csv records'.format(self.fullname))
             Exporter.export_as_csv(employee_filename('manager_records', self.fullname, '_records.csv'))
             self.logger.info('{} exported csv records'.format(self.fullname))
-            print('{}, you have exported sales records as CSV file stored in "manager_records" subfolder\n'.
+            print('{}, you successfully exported sales records as CSV file stored in "manager_records" subfolder\n'.
                   format(self.name))
         elif choice == 4:
             print('{}, you can always export sales records later.\n'.format(self.name))

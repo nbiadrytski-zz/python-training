@@ -25,14 +25,18 @@ def main():
         2 - No reports today... Maybe later...\n'''
 
     parser = ArgumentParser.parse_arguments()
+    print('=' * 76)
+    parser.print_help()  # printing Help for user once the app is started
+    print('=' * 76 + '\n')
     args = parser.parse_args()
+    logger.info('User passed the following command line args: {}'.format(args))
 
     if get_employee_position(args) == 'manager':
         try:
             manager = Manager(args.name[0], args.position[0])
             logger.info('Created Manager instance: {}'.format(manager.__str__()))
-            manager.create_employee(args)
-            logger.info('Created Manager employee: {}'.format(manager.__str__()))
+            manager.employee_greeting('\nYou can view and export sales records\n')
+            logger.debug('Greeted {}'.format(manager.__str__()))
             while manager.user_choice(manager_choice_msg, 3) == 1:
                 create_table()
                 logger.info('DB table created: {}'.format(manager.fullname))
@@ -51,8 +55,8 @@ def main():
         try:
             salesperson = Salesperson(args.name[0], args.position[0], args.beverage, args.addition)
             logger.info('Created Salesperson instance: {}'.format(salesperson.__str__()))
-            salesperson.create_employee(args)
-            logger.info('Created Salesperson employee: {}'.format(salesperson.__str__()))
+            salesperson.employee_greeting('\nYou can sell beverages and ingredients\n')
+            logger.debug('Greeted {}'.format(salesperson.__str__()))
             while salesperson.user_choice(salesperson_choice_msg, 3) == 1:
                 create_table()
                 logger.info('DB table created: {}'.format(salesperson.fullname))

@@ -35,25 +35,7 @@ class Salesperson(Employee):
         self.beverage = beverage
         self.addition = addition
         self.logger = logging.getLogger('main.argparsing.employees.Salesperson')
-
-    def create_employee(self, args):
-        """
-        Creates Salesperson instance. Overrides Employee.create_employee() method.
-        Prints greeting message to Salesperson.
-
-        Parameters:
-            args (argparse.Namespace): Arguments passed via command line.
-
-        Returns:
-            Salesperson: name, position, beverage name and ingredient name.
-        """
-        self.logger.debug('create_employee(): creating Salesperson employee')
-        print('Hi {}! You are a {}.\nYou can sell the following beverages:'.
-              format(Colors.GREEN + args.name[0] + Colors.RESET, args.position[0]))
-        for beverage in args.beverage:
-            print(Colors.GREEN + beverage + Colors.RESET)
-        self.logger.info('create_employee(): created Salesperson employee: {}'.format(self.__str__()))
-        return Salesperson(args.name[0], args.position[0], args.beverage, args.addition)
+        self.logger.info('Initialising Salesperson')
 
     def add_beverage(self, available_beverages):
         """
@@ -67,9 +49,9 @@ class Salesperson(Employee):
         """
         while True:
             beverage_to_sell = get_item_to_sell('beverage', available_beverages)
-            if beverage_to_sell.lower() in [x.lower() for x in available_beverages]:
+            if beverage_to_sell.lower() in (x.lower() for x in available_beverages):
                 beverage_price = enter_price('beverage')
-                sale_record = 'Beverage: {}. Price: {}$'.format(beverage_to_sell, str(beverage_price))
+                sale_record = 'Beverage: {}. Price: {}$'.format(beverage_to_sell.lower(), str(beverage_price))
                 self.logger.info('{} added a beverage: {} at {}$'.
                                  format(self.fullname, beverage_to_sell, str(beverage_price)))
                 return sale_record
@@ -91,9 +73,9 @@ class Salesperson(Employee):
         """
         while True:
             addition_to_sell = get_item_to_sell('ingredient', available_additions)
-            if addition_to_sell.lower() in [addition.lower() for addition in available_additions]:
+            if addition_to_sell.lower() in (addition.lower() for addition in available_additions):
                 addition_price = enter_price('ingredient')
-                sale_record = 'Addition: {}. Price: {}$'.format(addition_to_sell, str(addition_price))
+                sale_record = 'Addition: {}. Price: {}$'.format(addition_to_sell.lower(), str(addition_price))
                 self.logger.info('{} added addition: {} at {}$'.
                                  format(self.fullname, addition_to_sell, str(addition_price)))
                 return sale_record

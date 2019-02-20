@@ -35,7 +35,7 @@ class ArgumentParser(argparse.ArgumentParser):
                             help='List of available beverages a Salesperson can sell: tea, coffee, water, soda, etc.')
         parser.add_argument('-add', '--addition', action='append', default=None,
                             help='List of available ingredients a Salesperson can add: sugar, milk, cinnamon, etc.')
-        parser.print_help()
+
         print('\n')
         logger.info('parse_arguments(): created args parser')
 

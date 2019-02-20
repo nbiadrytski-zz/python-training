@@ -1,4 +1,5 @@
 import logging
+from argparsing.functions.colors import Colors
 
 
 class Employee:
@@ -23,26 +24,21 @@ class Employee:
         self.name = first_name
         self.position = position
         self.logger = logging.getLogger('main.argparsing.employees.Employee')
+        self.logger.info('Initialising Employee')
 
     @property
     def fullname(self):
         """str: Get Employee fullname: first name + first name with capital letter in reverse order"""
         return "{} {}".format(self.name, self.name[::-1].capitalize())
 
-    def create_employee(self, args):
+    def employee_greeting(self, message):
         """
-        Creates Employee instance(Salesperson, Manager, etc)
-        And prints greeting message to Employee. Can be overridden by subclasses.
+        Prints greeting message (name, position, possible actions) when employee starts the app
 
         Parameters:
-            args (argparse.Namespace): Arguments passed via command line.
-
-        Returns:
-            Employee: name and position.
+            message (str): Employee possible actions based on the position.
         """
-        print('Hi {}! You are the Owner of CoffeeForMe'.format(args.name[0]))
-        self.logger.info('create_employee(): created Owner employee: {}'.format(self.__str__()))
-        return Employee(args.name[0], args.position[0])
+        print('Hi {}! You are a {}.{}'.format(Colors.GREEN + self.name + Colors.RESET, self.position, message))
 
     def user_choice(self, choice_msg, delta):
         """

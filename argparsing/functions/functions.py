@@ -163,7 +163,7 @@ def show_sales_table(employees):
     """
     try:
         sales_sum = sum([pair[2] for pair in employees])
-        amount_sum = sum([pair[3] for pair in employees])
+        amount_sum = round(sum([pair[3] for pair in employees]), 2)
         logger.debug('show_sales_table(): number of sales sum: {}, total amount sum: {}'.
                      format(str(sales_sum), str(amount_sum)))
         seller_name = Colors.GREEN + 'Seller Name' + Colors.RESET
