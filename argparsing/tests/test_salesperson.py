@@ -7,7 +7,8 @@ from unittest.mock import patch
 from unittest import mock
 import random
 import string
-import fnmatch
+import shutil
+import os
 
 
 class SalespersonTest(TestCase):
@@ -138,17 +139,9 @@ class SalespersonTest(TestCase):
             sp.view_records()
             self.assertIn(expected_output, actual_output.getvalue(), '\n\nStrings do not match')
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    def tearDown(self):
+        try:
+            folder_to_delete = os.path.join(os.path.dirname(__file__), 'salesperson_records')
+            shutil.rmtree(folder_to_delete)
+        except FileNotFoundError as e:
+            print(e)
