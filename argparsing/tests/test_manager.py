@@ -76,30 +76,33 @@ class ManagerTest(TestCase):
 
     @mock.patch('builtins.input', create=True)
     def test_mng_export_records_json(self, mocked_input):
-        expected_output = 'Your choice is 1\n\nTony, your file is in "manager_records/Tony Ynot_records.json"\n\n'
+        expected_output = os.path.join('Your choice is 1\n\n'
+                                       'Tony, your file is in "manager_records', 'Tony Ynot_records.json"\n\n')
         with patch('sys.stdout', new=StringIO()) as actual_output:
             mocked_input.side_effect = [1]
             json_file_path = self.mng.export_records()
         self.assertIn(expected_output, actual_output.getvalue(), '\n\nStrings do not match')
-        self.assertEqual('manager_records/Tony Ynot_records.json', json_file_path)
+        self.assertEqual(os.path.join('manager_records', 'Tony Ynot_records.json'), json_file_path)
 
     @mock.patch('builtins.input', create=True)
     def test_mng_export_records_xml(self, mocked_input):
-        expected_output = 'Your choice is 2\n\nTony, your file is in "manager_records/Tony Ynot_records.xml"\n\n'
+        expected_output = os.path.join('Your choice is 2\n\n'
+                                       'Tony, your file is in "manager_records', 'Tony Ynot_records.xml"\n\n')
         with patch('sys.stdout', new=StringIO()) as actual_output:
             mocked_input.side_effect = [2]
             xml_file_path = self.mng.export_records()
         self.assertIn(expected_output, actual_output.getvalue(), '\n\nStrings do not match')
-        self.assertEqual('manager_records/Tony Ynot_records.xml', xml_file_path)
+        self.assertEqual(os.path.join('manager_records', 'Tony Ynot_records.xml'), xml_file_path)
 
     @mock.patch('builtins.input', create=True)
     def test_mng_export_records_csv(self, mocked_input):
-        expected_output = 'Your choice is 3\n\nTony, your file is in "manager_records/Tony Ynot_records.csv"\n\n'
+        expected_output = os.path.join('Your choice is 3\n\n'
+                                       'Tony, your file is in "manager_records', 'Tony Ynot_records.csv"\n\n')
         with patch('sys.stdout', new=StringIO()) as actual_output:
             mocked_input.side_effect = [3]
             csv_file_path = self.mng.export_records()
         self.assertIn(expected_output, actual_output.getvalue(), '\n\nStrings do not match')
-        self.assertEqual('manager_records/Tony Ynot_records.csv', csv_file_path)
+        self.assertEqual(os.path.join('manager_records', 'Tony Ynot_records.csv'), csv_file_path)
 
     @mock.patch('builtins.input', create=True)
     def test_mng_export_records_no_export(self, mocked_input):

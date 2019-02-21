@@ -121,6 +121,9 @@ def beverage_to_file(file_name, beverage_record='Default beverage'):
         with open(file_name, 'a') as f:
             f.write(beverage_record + '\n')
             logger.debug('wrote beverage "{}" to {} file'.format(beverage_record, file_name))
+        with open(file_name, 'r') as file:
+            content = file.read()
+        return content
     except IOError as e:
         logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
     except TypeError as e:
@@ -146,6 +149,9 @@ def beverage_addition_to_file(file_name, beverage_record='Default beverage', add
             f.write(addition_record + '\n')
             logger.debug('wrote beverage "{}" and addition {} to {} file'.
                          format(beverage_record, addition_record, file_name))
+        with open(file_name, 'r') as file:
+            content = file.read()
+        return content
     except IOError as e:
         logger.error('File {} not found or path is incorrect... {}'.format(file_name, e))
     except TypeError as e:
