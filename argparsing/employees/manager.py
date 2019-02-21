@@ -46,12 +46,12 @@ class Manager(Employee):
         """
         try:
             employees = view_db_records()
-            self.logger.debug('{} view_records(): printing salespeople sales records table'.format(self.__str__()))
+            self.logger.debug('{} printing salespeople sales records table'.format(self.__str__()))
             show_sales_table(employees)
             self.logger.info('{} viewed the table with sales records'.format(self.__str__()))
         except RuntimeWarning:
             print('\nNo sales records yet. Ask your salespeople to sell something.\n')
-            self.logger.info('manager.view_records(): no sales records yet')
+            self.logger.info('No sales records yet')
 
     def export_records(self):
         """

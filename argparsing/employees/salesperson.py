@@ -180,7 +180,7 @@ class Salesperson(Employee):
         """
         try:
             with open(employee_filename('salesperson_records', self.fullname, '_records.txt'), "r") as f:
-                self.logger.debug('salesperson.view_records(): printing {} sales records'.format(self.fullname))
+                self.logger.debug('Printing {} sales records'.format(self.fullname))
                 for line in f:
                     print(line)
         except IOError as e:

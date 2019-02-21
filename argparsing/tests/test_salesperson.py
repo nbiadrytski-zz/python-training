@@ -41,14 +41,6 @@ class SalespersonTest(TestCase):
         name = ''.join(random.choices(string.ascii_letters, k=10))  # random 10-character string
         return name
 
-    # def test_passed_args(self):
-    #     parser = ArgumentParser.parse_arguments()
-    #     args = parser.parse_args(['Nick', 'Salesperson', '-bev=Tea', '-add=Sugar'])
-    #     self.assertEqual(args.name, ['Nick'])
-    #     self.assertEqual(args.position, ['Salesperson'])
-    #     self.assertEqual(args.beverage, ['Tea'])
-    #     self.assertEqual(args.addition, ['Sugar'])
-
     def test_sp_employee_greeting(self):
         expected_output = 'Hi \x1b[32mJohn\x1b[0m! You are a Salesperson.Hello!\n'
         with patch('sys.stdout', new=StringIO()) as actual_output:
