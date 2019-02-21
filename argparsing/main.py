@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from argparsing.employees.manager import Manager
 from argparsing.employees.salesperson import Salesperson
 from argparsing.argsparser.argument_parser import ArgumentParser

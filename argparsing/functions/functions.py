@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from argparsing.functions.colors import Colors
 import re
 import logging

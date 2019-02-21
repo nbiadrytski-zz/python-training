@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from argparsing.employees.employee import Employee
 from argparsing.functions.db_funcs import *
 from argparsing.exporter.exporter import Exporter
@@ -55,27 +56,33 @@ class Manager(Employee):
     def export_records(self):
         """
         Exporting sales records to json, xml and csv files based on user's choice.
-        Informing user that the export was successful.
+        Printing exported file path and name to user.
+
+        Returns:
+            str: exported file path and name.
         """
         choice = self.user_choice(self.manager_export_msg, 5)
         if choice == 1:
+            json_file_path = employee_filename('manager_records', self.fullname, '_records.json')
             self.logger.debug('{} is trying to export json records'.format(self.fullname))
             Exporter.export_as_json(employee_filename('manager_records', self.fullname, '_records.json'))
-            self.logger.info('{} exported json records'.format(self.fullname))
-            print('{}, you successfully exported sales records as JSON file stored in "manager_records" subfolder\n'.
-                  format(self.name))
+            self.logger.info('{} exported json records to {}'.format(self.fullname, json_file_path))
+            print('{}, your file is in "{}"\n'.format(self.name, json_file_path))
+            return json_file_path
         elif choice == 2:
+            xml_file_path = employee_filename('manager_records', self.fullname, '_records.xml')
             self.logger.debug('{} is trying to export xml records'.format(self.fullname))
             Exporter.export_as_xml(employee_filename('manager_records', self.fullname, '_records.xml'))
-            self.logger.info('{} exported xml records'.format(self.fullname))
-            print('{}, you successfully exported sales records as XML file stored in "manager_records" subfolder\n'.
-                  format(self.name))
+            self.logger.info('{} exported xml records to {}'.format(self.fullname, xml_file_path))
+            print('{}, your file is in "{}"\n'.format(self.name, xml_file_path))
+            return xml_file_path
         elif choice == 3:
+            csv_file_path = employee_filename('manager_records', self.fullname, '_records.csv')
             self.logger.debug('{} is trying to export csv records'.format(self.fullname))
             Exporter.export_as_csv(employee_filename('manager_records', self.fullname, '_records.csv'))
-            self.logger.info('{} exported csv records'.format(self.fullname))
-            print('{}, you successfully exported sales records as CSV file stored in "manager_records" subfolder\n'.
-                  format(self.name))
+            self.logger.info('{} exported csv records to {}'.format(self.fullname, csv_file_path))
+            print('{}, your file is in "{}"\n'.format(self.name, csv_file_path))
+            return csv_file_path
         elif choice == 4:
             print('{}, you can always export sales records later.\n'.format(self.name))
 

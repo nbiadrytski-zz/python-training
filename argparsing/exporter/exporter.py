@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from argparsing.functions.db_funcs import *
 import json
 import csv

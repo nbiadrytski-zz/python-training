@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 class Colors:
     """
     Colors class stores colors variables using ANSI escape codes to make console output colorful.

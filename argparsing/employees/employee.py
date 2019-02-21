@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import logging
 from argparsing.functions.colors import Colors
 
@@ -24,7 +25,7 @@ class Employee:
         self.name = first_name
         self.position = position
         self.logger = logging.getLogger('main.argparsing.employees.Employee')
-        self.logger.info('Initialising Employee')
+        self.logger.debug('Initialising Employee')
 
     @property
     def fullname(self):

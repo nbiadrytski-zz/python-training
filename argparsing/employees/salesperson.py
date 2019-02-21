@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from argparsing.employees.employee import Employee
 from argparsing.functions.db_funcs import *
 from argparsing.functions.functions import *
