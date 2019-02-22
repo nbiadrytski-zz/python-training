@@ -13,7 +13,13 @@ class DbFuncsTest(TestCase):
 
     def tearDown(self):
         self.conn.close()
-        os.remove('employees.db')
+        try:
+            extensions = ('.db', '.json', '.xml', '.csv')
+            for f in os.listdir(os.curdir):
+                if f.endswith(extensions):
+                    os.remove(f)
+        except FileNotFoundError as e:
+            print(e)
 
     def test_create_table(self):
         self.cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='employees'")

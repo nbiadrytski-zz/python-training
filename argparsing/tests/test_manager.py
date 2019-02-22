@@ -24,10 +24,12 @@ class ManagerTest(TestCase):
     def tearDown(self):
         # delete temp folder and files created by tests
         try:
-            manager_records_tmp_folder = os.path.join(os.path.dirname(__file__), 'manager_records')
-            employees_db_tmp_file = os.path.join(os.path.dirname(__file__)) + '/employees.db'
-            os.remove(employees_db_tmp_file)
-            shutil.rmtree(manager_records_tmp_folder)
+            exts = ('.db', '.json', '.xml', '.csv')
+            mng_tmp_folder = os.path.join(os.path.dirname(__file__), 'manager_records')
+            shutil.rmtree(mng_tmp_folder)
+            for f in os.listdir(os.curdir):
+                if f.endswith(exts):
+                    os.remove(f)
         except FileNotFoundError as e:
             print(e)
 

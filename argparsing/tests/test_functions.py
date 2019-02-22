@@ -5,12 +5,21 @@ from argparsing.argsparser.argument_parser import ArgumentParser
 from unittest.mock import patch
 from unittest import mock
 from io import StringIO
+import shutil
 
 
 class FunctionsTest(TestCase):
 
     def setUp(self):
         self.parser = ArgumentParser.parse_arguments()
+
+    def tearDown(self):
+        # delete temp folder created by tests
+        try:
+            tmp_folder = os.path.join(os.path.dirname(__file__), 'manager_records')
+            shutil.rmtree(tmp_folder)
+        except FileNotFoundError as e:
+            print(e)
 
     def test_get_employee_position_salesperson(self):
         args = self.parser.parse_args(['John', 'SaLeSpErSoN'])
@@ -29,12 +38,7 @@ class FunctionsTest(TestCase):
 
     def test_employee_filename(self):
         file_path = employee_filename('manager_records', 'Mike Jones', '_file.txt')
-        try:
-            manager_records_tmp_folder = os.path.join(os.path.dirname(__file__), 'manager_records')
-            os.rmdir(manager_records_tmp_folder)
-            self.assertEqual(os.path.join('manager_records', 'Mike Jones_file.txt'), file_path)
-        except FileNotFoundError as e:
-            print(e)
+        self.assertEqual(os.path.join('manager_records', 'Mike Jones_file.txt'), file_path)
 
     @mock.patch('builtins.input', create=True)
     def test_item_to_sell(self, mocked_input):

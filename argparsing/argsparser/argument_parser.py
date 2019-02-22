@@ -45,13 +45,12 @@ class ArgumentParser(argparse.ArgumentParser):
     def error(self, message):
         """
         Overrides argparse.ArgumentParser error method to customize error for missing args.
-        Prints Help, message and exits.
+        Prints Error message and exits.
 
         Parameters:
             message (str): message name.
         """
-        logger.error('error(): obligatory args were not supplied bu user')
-        self.print_help(sys.stderr)
+        logger.error('obligatory args were not supplied bu user: {} - {}'.format(self.prog, message))
         self.exit(0, '{} Error: {}'.format(self.prog, message))
 
     @staticmethod

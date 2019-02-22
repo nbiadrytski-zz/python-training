@@ -9,10 +9,13 @@ import logging
 
 
 def main():
+    # creating logger
     logger = logging.getLogger('main')
     logger.setLevel(logging.INFO)
+    # creating File Handler
     file_handler = logging.FileHandler('coffee_for_me.log')
     file_handler.setLevel(logging.INFO)
+    # creating Formatter
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(funcName)s - %(levelname)s - %(message)s')
     file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
@@ -32,6 +35,7 @@ def main():
     args = parser.parse_args()
     logger.info('User passed the following command line args: {}'.format(args))
 
+    # detecting if employee is a manager
     if get_employee_position(args) == 'manager':
         try:
             manager = Manager(args.name[0], args.position[0])
@@ -52,6 +56,7 @@ def main():
         except NameError:
             logger.error('Non-manager object is trying to access manager stuff...')
 
+    # detecting if employee is a salesperson
     elif get_employee_position(args) == 'salesperson':
         try:
             salesperson = Salesperson(args.name[0], args.position[0], args.beverage, args.addition)

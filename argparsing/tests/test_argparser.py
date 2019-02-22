@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from argparsing.argsparser.argument_parser import ArgumentParser
 from unittest import TestCase
 from io import StringIO
