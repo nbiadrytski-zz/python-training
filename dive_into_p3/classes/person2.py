@@ -17,12 +17,13 @@ class Person2:
     def fullname(self):
         del self.name
         del self.surname
+        print('deleting fn')
 
 
 jane = Person2("Jane", "Smith")
-print(jane.fullname)
+print(jane.fullname)  # @property
 
-jane.fullname = "Jane Doe"
-print(jane.fullname)
-print(jane.name)
-print(jane.surname)
+jane.fullname = "Jane Doe"  # @fullname.setter
+print(jane.fullname)  # @property
+
+del jane.fullname  # @fullname.deleter

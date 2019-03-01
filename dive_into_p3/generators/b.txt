@@ -1,0 +1,135 @@
+ Object-Oriented Programming in Python
+1.0
+
+Search docs
+Introduction
+Python basics
+Variables and scope
+Selection control statements
+Collections
+Loop control statements
+Errors and exceptions
+Functions
+Classes
+Object-oriented programming
+Packaging and testing
+Useful modules in the Standard Library
+Introduction to GUI programming with tkinter
+Sorting, searching and algorithm analysis
+
+Reach over 7 million devs each month when you advertise with Read the Docs.
+Sponsored · Ads served ethically
+Docs » Object-Oriented Programming in Python  Edit on Bitbucket
+Object-Oriented Programming in Python
+Contents:
+
+Introduction
+What is a computer?
+History of computers
+Programming a computer
+Programming languages
+Python basics
+Introduction
+Getting started with Python
+Essentials of a Python program
+Integers
+Floating-point numbers
+Strings
+Answers to exercises
+Variables and scope
+Variables
+Modifying values
+Type conversion
+Answers to exercises
+Selection control statements
+Introduction
+Selection: if statement
+More on the if statement
+Boolean values, operators and expressions
+The None value
+Answers to exercises
+Collections
+Lists
+Tuples
+Sets
+Ranges
+Dictionaries
+Converting between collection types
+Two-dimensional sequences
+Answers to exercises
+Loop control statements
+Introduction
+The while statement
+The for statement
+Nested loops
+Iterables, iterators and generators
+Comprehensions
+The break and continue statements
+Answers to exercises
+Errors and exceptions
+Errors
+Handling exceptions
+Debugging programs
+Logging
+Answers to exercises
+Functions
+Introduction
+Input parameters
+Return values
+The stack
+Default parameters
+*args and **kwargs
+Decorators
+Lambdas
+Generator functions and yield
+Answers to exercises
+Classes
+Defining and using a class
+Instance attributes
+Class attributes
+Class decorators
+Inspecting an object
+Overriding magic methods
+Answers to exercises
+Object-oriented programming
+Introduction
+Composition
+Inheritance
+More about inheritance
+Avoiding inheritance
+Answers to exercises
+Packaging and testing
+Modules
+Packages
+Documentation
+Testing
+Answers to exercises
+Useful modules in the Standard Library
+Date and time: datetime
+Mathematical functions: math
+Pseudo-random numbers: random
+Matching string patterns: re
+Parsing CSV files: csv
+Writing scripts: sys and argparse
+Answers to exercises
+Introduction to GUI programming with tkinter
+Event-driven programming
+tkinter basics
+Layout options
+Custom events
+Putting it all together
+Answers to exercises
+Sorting, searching and algorithm analysis
+Introduction
+Sorting algorithms
+Searching algorithms
+Algorithm complexity and Big O notation
+Answers to exercises
+Indices and tables
+Index
+Module Index
+Search Page
+© Copyright 2013, 2014, University of Cape Town and individual contributors. This work is released under the CC BY-SA 4.0 licence. Revision 8e685e710775.
+
+Built with Sphinx using a theme provided by Read the Docs.
+ Read the Docs v: 1.0

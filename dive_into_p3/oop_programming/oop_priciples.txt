@@ -1,0 +1,69 @@
+Encapsulation - data inside the object should only be accessed through object’s methods.
+
+- the functionality is defined in one place and not in multiple places.
+- it is defined in a logical place – the place where the data is kept.
+- data inside our object is not modified unexpectedly by external code in a completely different part of our program.
+- when we use a method, we only need to know what result the method will produce –
+we don’t need to know details about the object’s internals in order to use it.
+We could switch to using another object which is completely different on the inside,
+and not have to change any code because both objects have the same interface.
+
+There is a convention that we can use to indicate that a property is intended to be private and
+is not part of the object’s public interface: we begin its name with an underscore.
+
+
+Composition
+
+In composition one of the classes is composed of one or more instance of other classes.
+In other words one class is container and other class is content
+and if you delete the container object then all of its contents objects are also deleted.
+
+
+Aggregation
+
+Aggregation is a week form of composition.
+If you delete the container object contents objects can live without container object.
+
+
+Inheritance
+
+Inheritance is a way of arranging objects in a hierarchy from the most general to the most specific.
+An object which inherits from another object is considered to be a subtype of that object.
+When we can describe the relationship between two objects using the phrase is-a, that relationship is inheritance.
+Inheritance can help us to represent objects which have some differences and some similarities in the way they work.
+We can put all the functionality that the objects have in common in a base class,
+and then define one or more subclasses with their own custom functionality.
+Inheritance is also a way of reusing existing code easily.
+If we already have a class which does almost what we want,
+we can create a subclass in which we partially override some of its behaviour, or perhaps add some new functionality.
+
+
+Abstract classes and interfaces
+
+We can create a class which serves as a template for suitable objects
+by defining a list of methods that these objects must implement.
+This class is not intended to be instantiated because all our method definitions are empty –
+all the insides of the methods must be implemented in a subclass.
+The abstract class is thus an interface definition.
+In Python we can’t prevent anyone from instantiating a class,
+but we can create something similar to an abstract class by using NotImplementedError inside our method definitions.
+For example, here are some “abstract” classes which can be used as templates for shapes:
+
+class Shape2D:
+    def area(self):
+        raise NotImplementedError()
+
+class Shape3D:
+    def volume(self):
+        raise NotImplementedError()
+
+If an object inherits from 2DShape, it will gain that class’s default area method –
+but the default method raises an error
+which makes it clear to the user that a custom method must be defined in the child object:
+
+class Square(Shape2D):
+    def __init__(self, width):
+        self.width = width
+
+    def area(self):
+        return self.width ** 2
