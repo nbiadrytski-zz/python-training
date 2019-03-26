@@ -12,12 +12,12 @@ def do_work(item):  # simulate work
 
 def worker():
     while True:
-        item = q.get()  # get task from queue
+        item = q.get()  # get task from queue_demos
         do_work(item)
         q.task_done()  # inform about task completion
 
 
-def source():  # generate data for queue
+def source():  # generate data for queue_demos
     for i in range(100, 105):
         yield i
 
