@@ -23,3 +23,8 @@ Achieve encapsulation by moving operations from code outside the class to method
 __repr__ method is often used to provide an as-code low-level display of an object when present,
 and __str__ is reserved for more user-friendly informational displays. Printing runs __str__ and
 the interactive prompt echoes results with __repr__.
+
+The built-in instance.__class__ attribute provides a link from an instance to the class from which it was created.
+Classes in turn have a __name__, just like modules, and a __bases__ sequence that provides access to superclasses.
+The built-in object.__dict__ attribute provides a dictionary with one key/value pair for every attribute
+attached to a namespace object.
