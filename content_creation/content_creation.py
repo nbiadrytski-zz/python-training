@@ -6,9 +6,7 @@ import uuid
 
 uuid_regexp = "[a-f0-9]{8}-[a-f0-9]{4}-4[a-f0-9]{3}-[89aAbB][a-f0-9]{3}-[a-f0-9]{12}"
 content_path = "http://posting.mongo-arc-v2.mtvnservices.com/uca/v2/content/authoring/"
-media_episode_feed_url = '''http://feeds.mtvnservices.com/media/feed/media-episode-feed?\
-ds.namespace=roku.nickjr.com&query.uuid=9259988b-0ace-11e9-b5e7-70df2f866ace&\
-ds.stage=live&ds.nodp=false&lookupParentRating=true'''
+media_episode_feed_url = '''http://feeds.mtvnservices.com/media/feed/media-episode-feed?ds.namespace=comedycentral.com&query.uuid=6af4c818-2394-11e9-b5e7-70df2f866ace&ds.stage=live&ds.nodp=false&lookupParentRating=true'''
 feed_videos = []
 video_files_response = []
 separator = 112 * "="

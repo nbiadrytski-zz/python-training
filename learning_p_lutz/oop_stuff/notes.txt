@@ -1,0 +1,25 @@
+2 kinds of objects in Python’s OOP model: class objects and instance objects.
+Class objects provide default behavior and serve as factories for instance objects.
+Instance objects are the real objects your programs process — each is a namespace in its own right,
+but inherits names in the class from which it was created. Class objects come from statements,
+and instances come from calls; each time you call a class, you get a new instance of that class.
+
+Attributes of a class object record state information and behavior to be shared by all instances created from the class.
+
+In Python, instances inherit from classes, and classes inherit from superclasses. When looking for a name,
+Python checks the instance, then its class, then all superclasses.
+
+Methods named with double underscores (__X__) are special hooks. Such methods are called automatically
+when instances appear in built-in operations. For instance, if an instance object inherits an __add__ method,
+that method is called whenever the object appears in a + expression. The method’s return value becomes the result of the corresponding expression.
+If a class does not define or inherit an operator overloading method,
+it just means that the corresponding operation is not supported for the class’s instances.
+
+__init__ method, which is known as the constructor method and is used to initialize objects’ state.
+
+Encapsulation — wrapping up operation logic behind interfaces, such that each operation is coded only once in our program.
+Achieve encapsulation by moving operations from code outside the class to methods inside the class.
+
+__repr__ method is often used to provide an as-code low-level display of an object when present,
+and __str__ is reserved for more user-friendly informational displays. Printing runs __str__ and
+the interactive prompt echoes results with __repr__.
