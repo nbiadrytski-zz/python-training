@@ -28,3 +28,8 @@ The built-in instance.__class__ attribute provides a link from an instance to th
 Classes in turn have a __name__, just like modules, and a __bases__ sequence that provides access to superclasses.
 The built-in object.__dict__ attribute provides a dictionary with one key/value pair for every attribute
 attached to a namespace object.
+
+Method calls made through an instance, like this:
+instance.method(args...)
+are automatically translated to class method function calls of this form:
+class.method(instance, args...)
