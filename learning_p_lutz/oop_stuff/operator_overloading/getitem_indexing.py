@@ -1,5 +1,6 @@
 class Indexer:
-    def __getitem__(self, index):
+
+    def __getitem__(self, index):  # instance-indexing operations
         return index ** 2
 
 

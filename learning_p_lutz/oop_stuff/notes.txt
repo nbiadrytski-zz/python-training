@@ -33,3 +33,8 @@ Method calls made through an instance, like this:
 instance.method(args...)
 are automatically translated to class method function calls of this form:
 class.method(instance, args...)
+
+Any function that contains a yield statement is turned into a generator function.
+When called, it returns a new generator object with automatic retention of local scope and code position,
+an automatically created __iter__ method that simply returns itself, and an automatically created __next__ method
+that starts the function or resumes it where it last left off.
