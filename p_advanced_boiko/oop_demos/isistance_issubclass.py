@@ -5,5 +5,3 @@ print(isinstance(b, str))  # True
 
 print(issubclass(bool, int))  # True; since bool is a subclass of int
 
-a.mro()
-
