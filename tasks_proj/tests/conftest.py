@@ -1,11 +1,68 @@
-"""Placeholder."""
+"""Define some fixtures to use in the project."""
 
-# nothing here yet
-# Considered by pytest as a “local plugin” and can contain hook functions and fixtures.
-# Hook functions are a way to insert code into part of the pytest execution process to alter how pytest works.
-# Fixtures are setup and teardown functions that run before and after test functions,
-# and can be used to represent resources and data used by the tests.
-# Hook functions and fixtures that are used by tests in multiple subdirectories should be in tests/conftest.py.
-# You can have multiple conftest.py files;
-# for example, you can have one at tests and one for each subdirectory under tests.
+import pytest
+import tasks
+from tasks import Task
+
+
+@pytest.fixture()
+def tasks_db(tmpdir):
+    """Connect to db before tests, disconnect after."""
+    # Setup : start db
+    tasks.start_tasks_db(str(tmpdir), 'tiny')
+
+    yield  # this is where the testing happens
+
+    # Teardown : stop db
+    tasks.stop_tasks_db()
+
+
+# Reminder of Task constructor interface
+# Task(summary=None, owner=None, done=False, id=None)
+# summary is required
+# owner and done are optional
+# id is set by database
+
+
+@pytest.fixture()
+def tasks_just_a_few():  # Let’s use it to build up some non-empty databases to use for testing.
+    """All summaries and owners are unique."""
+    return (
+        Task('Write some code', 'Brian', True),
+        Task("Code review Brian's code", 'Katie', False),
+        Task('Fix what Brian did', 'Michelle', False))
+
+
+@pytest.fixture()
+def tasks_mult_per_owner():  # Let’s use it to build up some non-empty databases to use for testing.
+    """Several owners with several tasks each."""
+    return (
+        Task('Make a cookie', 'Raphael'),
+        Task('Use an emoji', 'Raphael'),
+        Task('Move to Berlin', 'Raphael'),
+
+        Task('Create', 'Michelle'),
+        Task('Inspire', 'Michelle'),
+        Task('Encourage', 'Michelle'),
+
+        Task('Do a handstand', 'Daniel'),
+        Task('Write some books', 'Daniel'),
+        Task('Eat ice cream', 'Daniel'))
+
+
+@pytest.fixture()
+def db_with_3_tasks(tasks_db, tasks_just_a_few):  # tasks_db -> tasks_just_a_few > db_with_3_tasks
+    """Connected db with 3 tasks, all unique."""
+    for t in tasks_just_a_few:
+        tasks.add(t)
+
+
+@pytest.fixture()
+def db_with_multi_per_owner(tasks_db, tasks_mult_per_owner):
+    """Connected db with 9 tasks, 3 owners, all with 3 tasks."""
+    for t in tasks_mult_per_owner:
+        tasks.add(t)
+
+
+
 

@@ -18,3 +18,38 @@ def test_start_tasks_db_raises():
         tasks.start_tasks_db('some/cool/path', 'mysql')
     exception_msg = excinfo.value.args[0]  # the first (and only) parameter to the exception matches a string
     assert exception_msg == "db_type must be a 'tiny' or 'mongo'"
+
+
+@pytest.mark.smoke
+def test_list_raises():
+    """list() should raise an exception with wrong type param."""
+    with pytest.raises(TypeError):
+        tasks.list_tasks(owner=123)
+
+
+@pytest.mark.get
+@pytest.mark.smoke
+def test_get_raises():
+    """get() should raise an exception with wrong type param."""
+    with pytest.raises(TypeError):
+        tasks.get(task_id='123')
+
+
+def test_delete_raises():
+    """delete() should raise an exception with wrong type param."""
+    with pytest.raises(TypeError):
+        tasks.delete(task_id=(1, 2, 3))
+
+
+class TestUpdate:
+    """Test expected exceptions with tasks.update()."""
+
+    def test_bad_id(self):
+        """A non-int id should raise an exception."""
+        with pytest.raises(TypeError):
+            tasks.update(task_id={'dict instead': 1}, task=tasks.Task())
+
+    def test_bad_task(self):
+        """A non-Task task should raise an exception."""
+        with pytest.raises(TypeError):
+            tasks.update(task_id=1, task='not a task')
