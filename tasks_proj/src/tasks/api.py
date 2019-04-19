@@ -125,6 +125,13 @@ def start_tasks_db(db_path, db_type):  # type: (str, str) -> None
 
 def stop_tasks_db():  # type: () -> None
     """Disconnect API functions from db."""
+    # global _tasksdb
+    # _tasksdb.stop_tasks_db()
+    # _tasksdb = None
     global _tasksdb
-    _tasksdb.stop_tasks_db()
-    _tasksdb = None
+    try:
+        _tasksdb.stop_tasks_db()
+    except AttributeError as e:
+        print('Ohhh nooo!!!! _tasksdb is None...............')
+    finally:
+        _tasksdb = None

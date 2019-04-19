@@ -1,21 +1,23 @@
 """Define some fixtures to use in the project."""
-
 import pytest
 import tasks
 from tasks import Task
 
 
-@pytest.fixture()
-def tasks_db(tmpdir):
+# @pytest.fixture(scope='session', params=['tiny',])
+@pytest.fixture(scope='session', params=['tiny', 'mongo'])
+def tasks_db_session(tmpdir_factory, request):
     """Connect to db before tests, disconnect after."""
-    # Setup : start db
-    tasks.start_tasks_db(str(tmpdir), 'tiny')
-
+    temp_dir = tmpdir_factory.mktemp('temp')
+    tasks.start_tasks_db(str(temp_dir), request.param)
     yield  # this is where the testing happens
-
-    # Teardown : stop db
     tasks.stop_tasks_db()
 
+
+@pytest.fixture()
+def tasks_db(tasks_db_session):
+    """An empty tasks db."""
+    tasks.delete_all()
 
 # Reminder of Task constructor interface
 # Task(summary=None, owner=None, done=False, id=None)
@@ -24,7 +26,7 @@ def tasks_db(tmpdir):
 # id is set by database
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def tasks_just_a_few():  # Let’s use it to build up some non-empty databases to use for testing.
     """All summaries and owners are unique."""
     return (
@@ -33,7 +35,7 @@ def tasks_just_a_few():  # Let’s use it to build up some non-empty databases t
         Task('Fix what Brian did', 'Michelle', False))
 
 
-@pytest.fixture()
+@pytest.fixture(scope='session')
 def tasks_mult_per_owner():  # Let’s use it to build up some non-empty databases to use for testing.
     """Several owners with several tasks each."""
     return (
