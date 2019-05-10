@@ -1,5 +1,5 @@
-from pytest_rest_api_frmw_2.tests.utils.base_request import BaseRequest
-from pytest_rest_api_frmw_2.tests.utils.base_response import BaseResponse
+from pytest_rest_api_frmw.utils.base_request import BaseRequest
+from api_framework.http_utils.response import Response
 
 
 class TestApi:
@@ -20,9 +20,9 @@ class TestApi:
         request = BaseRequest(host, path)
         response = request.get_request(query_params, headers)
 
-        status_code = BaseResponse.get_status_code(response)
-        connection_header = BaseResponse.get_response_header(response, 'Connection')
-        services_s3 = BaseResponse.get_value_from_json(response, 'content[0].chapters[0].beacons[0].method')
+        status_code = Response.get_status_code(response)
+        connection_header = Response.get_response_header(response, 'Connection')
+        services_s3 = Response.get_value_from_json(response, 'content[0].chapters[0].beacons[0].method')
 
         assert status_code == 200
         assert connection_header == 'Keep-alive'
@@ -36,11 +36,11 @@ class TestApi:
         request = BaseRequest(host, path)
         response = request.get_request()
 
-        master_pl_url = BaseResponse.get_value_from_json(response, 'stitchedstream.source')
+        master_pl_url = Response.get_value_from_json(response, 'stitchedstream.source')
         master_pl_response = BaseRequest.extracted_get_request(master_pl_url)
 
-        status_code = BaseResponse.get_status_code(master_pl_response)
-        content_type = BaseResponse.get_response_header(master_pl_response, 'Content-Type')
+        status_code = Response.get_status_code(master_pl_response)
+        content_type = Response.get_response_header(master_pl_response, 'Content-Type')
 
         assert status_code == 200
         assert content_type == 'application/vnd.apple.mpegurl;charset=utf-8'

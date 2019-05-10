@@ -1,0 +1,10 @@
+api.py                      25 INFO     TEST: Login with webinar5, webinar5 credentials
+get_request.py              11 INFO     GET request: https://seamless-dev.mtvnservices.com/api/mgid:arc:video:central:b71fddb3-2857-4cc3-a56c-dc580c743b46/mica.json
+GET request params: {'key1': 'value1', 'key2': 'value2'}
+GET request headers: {'User-Agent': 'test'}
+
+response.py                 12 INFO     Status code: 200
+
+response.py                 18 INFO     Response headers: {'Content-Length': '1151', 'Content-Type': 'application/json;charset=utf-8', 'Set-Cookie': 'cookie=empty', 'Access-Control-Allow-Origin': '*', 'Vary': 'User-Agent', 'Date': 'Fri, 10 May 2019 08:16:52 GMT', 'Connection': 'keep-alive'}
+
+response.py                 28 INFO     Response body: {'$schema': 'https://player.mtvnservices.com/mica/schemas/mica-schema-0.2.1.json', 'version': '0.2.1', 'documentid': 'a4798df2-bd98-4c0b-8ac0-ab160bd33eeb', 'originationdate': '2019-05-10T08:16:52+0000', 'stitchedstream': {'source': 'https://seamless-dev.mtvnservices.com/api/mgid:arc:video:central:b71fddb3-2857-4cc3-a56c-dc580c743b46/a4798df2-bd98-4c0b-8ac0-ab160bd33eeb/master.m3u8?proxy=false', 'duration': '00:09:30.069', 'adstitchingprovider': 'seamless', 'cdn': 'level3', 'streamingtype': 'vod', 'minrenditionheight': 216, 'maxrenditionheight': 540, 'minrenditionbitrate': 791, 'maxrenditionbitrate': 2158, 'renditioncount': 4}, 'content': [{'id': 'mgid:arc:video:central:b71fddb3-2857-4cc3-a56c-dc580c743b46', 'duration': '00:09:30.069', 'chapters': [{'sequence': 1, 'id': 'mgid:arc:video:central:b71fddb3-2857-4cc3-a56c-dc580c743b46', 'contentoffset': '00:00:00.000', 'streamoffset': '00:00:00.000', 'duration': '00:09:30.069', 'beacons': [{'url': 'https://niagara.cc.com/register/mtv/clips/mgid:arc:video:central:b71fddb3-2857-4cc3-a56c-dc580c743b46', 'contentoffset': '00:00:00.000', 'streamoffset': '00:00:00.000', 'elapsed': None, 'method': 'get', 'type': None}], 'overlays': []}], 'adbreaks': []}]}

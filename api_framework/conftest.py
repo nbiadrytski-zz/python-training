@@ -1,5 +1,5 @@
 from pytest import fixture
-from pytest_rest_api_frmw_2.tests.hosts_config import HostsConfig
+from api_framework.hosts_config import HostsConfig
 
 
 def pytest_addoption(parser):

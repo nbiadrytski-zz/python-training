@@ -1,0 +1,5 @@
+get_request.py              11 INFO     GET request: https://seamless-dev.mtvnservices.com/api/mgid:arc:video:central:b71fddb3-2857-4cc3-a56c-dc580c743b46/mica.json
+GET request params: None
+GET request headers: None
+
+response.py                 12 INFO     Status code: 200
