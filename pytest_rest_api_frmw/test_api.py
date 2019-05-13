@@ -1,5 +1,5 @@
 from pytest_rest_api_frmw.utils.base_request import BaseRequest
-from api_framework.http_utils.response import Response
+from api_framework.utils.http_utils import Response
 
 
 class TestApi:

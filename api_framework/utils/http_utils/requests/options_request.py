@@ -1,4 +1,4 @@
-from api_framework.http_utils.base_url import BaseUrl
+from api_framework.utils.http_utils.base_url import BaseUrl
 import requests
 
 
@@ -12,7 +12,7 @@ class OptionsRequest(BaseUrl):
                                 params=query_params,
                                 headers=headers)
 
-        self.logger.info(f'\n\nOPTIONS REQUEST: {self.base_url}\n'
+        self.logger.info(f'OPTIONS REQUEST: {self.base_url}\n'
                          f'OPTIONS REQUEST PARAMS: {query_params}\n'
                          f'OPTIONS REQUEST HEADERS: {headers}\n')
         return resp

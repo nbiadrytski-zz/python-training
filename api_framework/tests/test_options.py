@@ -1,6 +1,6 @@
-from api_framework.http_utils.response_validator import ResponseValidator
-from api_framework.http_utils.options_request import OptionsRequest
-from api_framework.http_utils.get_request import GetRequest
+from api_framework.utils.http_utils.response.response_validator import ResponseValidator
+from api_framework.utils.http_utils.requests.options_request import OptionsRequest
+from api_framework.utils.http_utils.requests.get_request import GetRequest
 import pytest
 from allure_commons._allure import step
 from allure import description, severity
@@ -20,16 +20,16 @@ class TestOptionsRequests:
                    'Access-control-request-headers': 'Content-type',
                    'Origin': 'www.cmt.com'}
 
-        request = OptionsRequest(current_host.host, path).call(headers=headers)
-        response = ResponseValidator(request)
+        actual_response = OptionsRequest(current_host.host, path).call(headers=headers)
+        validator = ResponseValidator(actual_response)
 
         with step('Status code is 200'):
-            assert response.get_status_code(request) == 200
+            assert validator.get_status_code(actual_response) == 200
 
         with step('Response header Access-Control-Allow-Origin: *'):
-            assert response.get_response_header(request, 'Access-Control-Allow-Origin') == '*'
+            assert validator.get_response_header(actual_response, 'Access-Control-Allow-Origin') == '*'
         with step('Response header Access-Control-Allow-Methods: GET,POST,DELETE,PUT'):
-            assert response.get_response_header(request, 'Access-Control-Allow-Methods') == 'GET,POST,DELETE,PUT'
+            assert validator.get_response_header(actual_response, 'Access-Control-Allow-Methods') == 'GET,POST,DELETE,PUT'
 
     @description('Verify GET request in OPTIONS class.')
     @severity('CRITICAL')
@@ -37,10 +37,10 @@ class TestOptionsRequests:
 
         path = '/api/mgid:arc:video:central:b71fddb3-2857-4cc3-a56c-dc580c743b46/mica.json'
 
-        request = GetRequest(current_host.host, path).call()
-        response = ResponseValidator(request)
+        actual_response = GetRequest(current_host.host, path).call()
+        validator = ResponseValidator(actual_response)
 
         with step('Status code is 200'):
-            assert response.get_status_code(request) == 200
+            assert validator.get_status_code(actual_response) == 200
 
 
