@@ -15,3 +15,10 @@ def env(request):  # request (pytest built-in) keeps all command-line session in
 def current_host(env):
     cfg = HostsConfig(env)
     return cfg
+
+
+@fixture()
+def print_smth():
+    print('Hello!!! I am print_smth fixture. Printing before the test starts...')
+    yield print('Hello!!! I am print_smth fixture. Printing in the middle of the test...')
+    print('Hello!!! I am print_smth fixture. Printing after the test...')

@@ -17,8 +17,7 @@ class TestResponseBody:
         validator = ResponseValidator(actual_response)
 
         with step('Compare text response body'):
-            assert validator.response_equals(actual_response,
-                                             '/resources/testdata/api_version.txt'), \
+            assert validator.response_equals(actual_response,'/resources/testdata/responses/api_version.txt'), \
                 'Content of api_version.txt is not equal to actual response'
 
     @description('Compare json response body (some keys ignored).')
@@ -33,7 +32,7 @@ class TestResponseBody:
         with step('Compare actual and expected json responses.'):
             responses_match = validator.json_response_equals(
                 actual_response=api_version_response,
-                expected_response='/resources/testdata/api_status.json',
+                expected_response='/resources/testdata/responses/api_status.json',
                 config_section_title='keys',
                 ignore_keys=('redis',))
 

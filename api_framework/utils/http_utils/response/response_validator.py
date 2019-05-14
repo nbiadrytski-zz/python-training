@@ -9,7 +9,7 @@ class ResponseValidator:
     Log request status code, response headers and response body when ResponseValidator object is created.
 
     Parameters:
-        resp (requests.models.Response): Response object returned by HTTP request.
+        resp (Response): Response object returned by HTTP request.
     """
 
     def __init__(self, resp):
@@ -24,7 +24,7 @@ class ResponseValidator:
         Get status code of HTTP request.
 
         Parameters:
-            resp (requests.models.Response): Response object returned by HTTP request.
+            resp (Response): Response object returned by HTTP request.
 
         Returns:
             int: HTTP status code
@@ -38,7 +38,7 @@ class ResponseValidator:
         Get response header of HTTP request.
 
         Parameters:
-            resp (requests.models.Response): Response object returned by HTTP request.
+            resp (Response): Response object returned by HTTP request.
             header_name (str): response header name
 
         Returns:
@@ -53,7 +53,7 @@ class ResponseValidator:
         Get JSON key value by provided json path.
 
         Parameters:
-            resp (requests.models.Response): Response object returned by HTTP request.
+            resp (Response): Response object returned by HTTP request.
             json_path (str): path to JSON key
 
         Returns:
@@ -69,7 +69,7 @@ class ResponseValidator:
         Compare actual HTTP response in plain text with expected response stored as str in .txt file
 
         Parameters:
-            actual_response (requests.models.Response): Response object returned by HTTP request.
+            actual_response (Response): Response object returned by HTTP request.
             expected_response (str): relative path to txt file with expected
 
         Returns:
@@ -84,7 +84,7 @@ class ResponseValidator:
         Get response as text.
 
         Parameters:
-            resp (requests.models.Response): Response object returned by HTTP request.
+            resp (Response): Response object returned by HTTP request.
 
         Returns:
             str: response as text
@@ -99,14 +99,19 @@ class ResponseValidator:
                              ignore_keys=()):
         """
         Check if actual JSON response has the same content as expected response stored in .json file.
-        1. Get json_keys_config.ini by creating DataConfigParser object
-        2. Convert actual json to dict
+        1. Get json_keys_config.ini by creating DataConfigParser object (provide path to config file)
+        2. Convert actual json response to dict
+        3. Convert expected json response from .json file to dict
+        4. Compare 2 dicts and log diff if they do not match
 
         Parameters:
-            resp (requests.models.Response): Response object returned by HTTP request.
+            actual_response (Response): Response object returned by HTTP request.
+            expected_response (str): path to .json file with stored expected response
+            config_section_title (str): name of config.ini section
+            ignore_keys (tuple): optional, a tuple of config.ini keys to be ignored when comparing responses
 
         Returns:
-            str: response as text
+            bool: whether actual and expected responses match
         """
         config_parser = DataConfigParser('resources/data_configs/json_keys_config.ini')
         ignored_keys = config_parser.get_ignored_keys(config_section_title, ignore_keys)
