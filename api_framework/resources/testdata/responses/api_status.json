@@ -1,6 +1,6 @@
 {
   "message": "passed",
-  "version": "1.45-SNAPSHOT",
+  "version": "2.0-SNAPSHOT",
   "services": {
     "s3": "passed",
     "redis": "2672"

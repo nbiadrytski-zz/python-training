@@ -1,4 +1,10 @@
 class HostsConfig:
+    """
+    List of supported environments (passed via command-line) matched to request's host.
+
+    Parameters:
+        env (str): environment
+    """
     def __init__(self, env):
 
         supported_envs = ['dev',

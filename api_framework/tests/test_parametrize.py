@@ -7,7 +7,7 @@ from allure import description, severity, severity_level, title
 
 @pytest.mark.package
 @title('Parameterized test title: /api/version response contains "{value}"')
-@pytest.mark.parametrize('value', ['The', 'current', 'version', 'is', '1.45'])
+@pytest.mark.parametrize('value', ['The', 'current', 'version', 'is', '2.0'])
 @description('Check that response contains expected values.')
 @severity(severity_level.TRIVIAL)
 def test_parametrize_contains_value(current_host, value):
