@@ -1,0 +1,3 @@
+from rest_api_test_framework.utils.http_utils.requests.post_request import PostRequest
+from rest_api_test_framework.utils.http_utils.requests.get_request import GetRequest
+from rest_api_test_framework.utils.http_utils.requests.options_request import OptionsRequest

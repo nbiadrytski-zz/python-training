@@ -1,0 +1,1 @@
+from rest_api_test_framework.utils.config_parser.config_parser import DataConfigParser
