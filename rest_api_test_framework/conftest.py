@@ -1,5 +1,6 @@
 from pytest import fixture
 from rest_api_test_framework.hosts_config import HostsConfig
+from rest_api_test_framework.utils.exceptions import NoEnvArgException
 
 
 def pytest_addoption(parser):
@@ -9,7 +10,12 @@ def pytest_addoption(parser):
 
 @fixture(scope='session')
 def env(request):
-    """pytest built-in request keeps all command line session info"""
+    """
+    pytest built-in request keeps all command line session info.
+    Raises custom NoEnvArgException if --env command line arg was not passed.
+    """
+    if request.config.getoption('--env') is None:
+        raise NoEnvArgException(request.config.getoption('--env'))
     return request.config.getoption('--env')
 
 
