@@ -18,7 +18,7 @@ class HostsConfig:
             raise UnsupportedEnvException(env, supported_envs)
 
         self.host = {
-            'live': 'https://seamless.mtvnservices.com',
-            'dev': 'https://seamless-dev.mtvnservices.com',
-            'media': 'http://seamless-media.mtvnservices.com'
+            'live': 'https://test.com',
+            'dev': 'https://test.com',
+            'media': 'http://test.com'
         }[env]
