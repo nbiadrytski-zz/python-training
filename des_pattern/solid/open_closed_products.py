@@ -2,6 +2,12 @@ from enum import Enum
 from abc import ABCMeta, abstractmethod
 
 
+# Open Closed:
+# A class should be open for extension (usually by inheritance), but closed for modification
+# which means it's not a good idea to change smth that is already properly working,
+# but it's better to extend the functionality in a new class
+
+
 class Color(Enum):
     RED = 1
     GREEN = 2
@@ -25,6 +31,7 @@ class Product:
 class Spec(metaclass=ABCMeta):
     @abstractmethod
     def is_satisfied(self, item):
+        """Does an item satisfy the requirement?"""
         pass
 
 
@@ -87,5 +94,3 @@ print('Large blue items:')
 large_blue = CombinedSpec(large, ColorSpec(Color.BLUE))
 for p in prod_filter.filter(products, large_blue):
     print(f' - {p.name} is large and blue')
-
-
