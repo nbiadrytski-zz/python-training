@@ -1,13 +1,13 @@
 import paramiko
 import time
 
-test = 'dkfjbvdjkfb ekjbgdjbg ejrbjkebrg ekjbrgekjbrgejkbrg ekjregknjbrngjkebr kejrbgkjerbgejkrbg ekjrbgejkbgejkrbg kejrbgejkbrg'
+
 HOST = '10.6.221.128'
 USERNAME = 'pyauto'
 PASSWORD = 'PythonMentoringBY2019'
 
-upload_local_path = '/Users/mikalai_biadrytski/Desktop/in.txt'
-upload_remote_path = '/home/pyauto/in.txt'
+upload_local_path = '/Users/mikalai_biadrytski/Desktop/Test-case-template.xls'
+upload_remote_path = '/home/pyauto/my_projects/adpyauto/Test-case-template.xls'
 download_remote_path = '/home/pyauto/out.txt'
 download_local_path = '/Users/mikalai_biadrytski/Desktop/out.txt'
 
@@ -74,9 +74,13 @@ if __name__ == '__main__':
     # Connect to VM: returns ssh client
     ssh_session = connect_to_remote_host(HOST, USERNAME, PASSWORD)
 
-    api_version_response = run_curl_command(ssh_session)
+    # api_version_response = run_curl_command(ssh_session)
+    #
+    # for row in api_version_response:
+    #     print(row)
+    sftp_client = create_sftp_client(ssh_session)
 
-    for row in api_version_response:
-        print(row)
+    upload_from_local_to_remote(sftp_client)
 
+    close_sftp_client(sftp_client)
     close_ssh_client(ssh_session)

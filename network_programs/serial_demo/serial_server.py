@@ -14,13 +14,14 @@ class SerialToNet(serial.threaded.Protocol):
 
     def data_received(self, data):
         if self.socket is not None:
-            print(f'Serial received {data} from TCP client')
+            print(f'Ethernet Bridge received "{data.decode("utf-8")}" from TCP client')
             self.socket.sendall(data)
 
 
-ser = serial.serial_for_url('/dev/tty.usbserial-14200', 115200)
-ser_to_net = SerialToNet()
-serial_worker = serial.threaded.ReaderThread(ser, ser_to_net)
+# /dev/tty.usbserial-14200
+bridge = serial.serial_for_url('/dev/serial/by-id/usb-FTDI_Dual_RS232-HS-if00-port0', 115200)
+serial_to_tcp = SerialToNet()
+serial_worker = serial.threaded.ReaderThread(bridge, serial_to_tcp)
 serial_worker.start()
 
 
@@ -44,18 +45,20 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listen_socket:
     listen_socket.listen(1)  # 1 is number of waiting connections allowed
     # connection_socket is the socket to communicate with the client
     connection_socket, client_address = listen_socket.accept()  # blocks and waits for an incoming connection
-    print(f'TCP client {client_address} connected to TCP Server (serial) {connection_socket.getsockname()}')
+    print(f'TCP client {client_address} '
+          f'connected to TCP Server {connection_socket.getsockname()} '
+          f'at serial port "{bridge.portstr}"')
     try:
-        ser_to_net.socket = connection_socket  # enter network <-> serial loop
+        serial_to_tcp.socket = connection_socket  # enter network <-> serial loop
         while True:
             try:
                 # receiving data from client socket
                 data = connection_socket.recv(2048)
                 if not data:
                     break
-                ser.flush()  # flush before sending data
-                ser.write(data)  # serial sends received data back to tcp client
-                print(f'Serial sent: {data.decode("utf-8")} to TCP client')
+                bridge.flush()  # flush before sending data
+                bridge.write(data)  # serial sends received data back to tcp client
+                print(f'Ethernet Bridge sent: "{data.decode("utf-8")}" to TCP client')
             except socket.error as msg:
                 sys.stderr.write('ERROR: {}\n'.format(msg))
                 break
@@ -63,21 +66,3 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as listen_socket:
         sys.stderr.write('ERROR: {}\n'.format(msg))
 
 serial_worker.stop()
-    # with connection_socket:
-    #     print(f'Client {client_address} connected to Server {connection_socket.getsockname()}')
-    #     while True:
-    #         data = connection_socket.recv(1024)  # reads whatever data the client sends
-    #         if not data:
-    #             break
-    #         connection_socket.sendall(data)  # echoes data back to client
-
-# after starting the server see the current state of sockets on your host
-# $ netstat -an
-# Active Internet connections (including servers)
-# Proto Recv-Q Send-Q  Local Address          Foreign Address        (state)
-# tcp4       0      0  127.0.0.1.65432        *.*                    LISTEN
-
-# lsof gives you the COMMAND, PID (process id), and USER (user id) of open Internet sockets
-# $ lsof -i -n
-# COMMAND     PID   USER   FD   TYPE   DEVICE SIZE/OFF NODE NAME
-# Python    67982 nathan    3u  IPv4 0xecf272      0t0  TCP *:65432 (LISTEN)
