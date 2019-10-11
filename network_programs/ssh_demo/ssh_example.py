@@ -4,18 +4,18 @@ import paramiko
 # malina: 10.6.178.12, pi / raspberry
 # python training: 10.6.221.128, pyauto / PythonMentoringBY2019
 
-HOST = '10.6.179.100'
-USERNAME = 'pi'
-PASSWORD = 'raspberry'
+HOST = '127.0.0.1'
+USERNAME = 'osboxes'
+PASSWORD = '0'
 
-#upload_local_path = '/Users/mikalai_biadrytski/Documents/autotests/udemy_python/python-training/network_programs/ssh_demo/gap_counter2.py'
-#upload_remote_path = '/home/pi/gap_counter2.py'
-download_remote_path = '/home/pi/git_projects/tsif-motor-library/results.csv'
-download_local_path = '/Users/mikalai_biadrytski/Documents/results.csv'
+# upload_local_path = '/Users/mikalai_biadrytski/Desktop/new_raddish_usp10_report.xml'
+# upload_remote_path = '/home/osboxes/projects/roc1-tph1/tall-tscs/bddsuite/new_raddish_usp10_report.xml'
+download_remote_path = '/home/osboxes/projects/roc1-tph1/tall-tscs/bddsuite/hpalm_report_tsis_usp10465.xml'
+download_local_path = '/Users/mikalai_biadrytski/Desktop/hpalm_report_tsis_usp10465.xml'
 
 with paramiko.SSHClient() as ssh_client:
     ssh_client.load_system_host_keys()
-    ssh_client.connect(HOST, username=USERNAME, password=PASSWORD)  # start centOS VM
+    ssh_client.connect(HOST, username=USERNAME, password=PASSWORD, port=2222)  # start centOS VM
 
     # _, current_dir, _ = ssh_client.exec_command('pwd')
     # _, stdout, _ = ssh_client.exec_command('ls')

@@ -1,0 +1,11 @@
+GIVEN TSIS has sent the Connect message to TSCS
+
+WHEN TSIS receives the Initialize message from TSCS
+
+THEN TSIS shall broadcast five times the RESTART TRANSPORT MODULE message to all connected TSTMs so that the receiving TSTMs load the Bootloader image
+
+AND 1 second later TSIS shall broadcast five times the START DAISY CHAIN PROCESS message to all connected TSTMs
+
+AND TSIS shall broadcast five times the ASSIGN ADDRESS message with address value 1 
+
+AND TSIS shall send the VERSION message to TSTM with address value 1
